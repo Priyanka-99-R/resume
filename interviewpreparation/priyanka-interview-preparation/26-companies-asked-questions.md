@@ -18,7 +18,10 @@
 | 4 | **Photon Interactive** | 2 rounds (Frontend + Backend) | ❌ Not selected | ✅ 46 → [§](#-photon-interactive--round-1-frontend) |
 | 5 | **Codeboard Technology** | Level 1 (single round → onboarding) | ❌ Not selected | ✅ 7 → [§](#-codeboard-technology--level-1-single-round) |
 | 6 | **Mphasis** | L1 Technical (Java/Spring/microservices) — *6 Aug 2026* | 🟢 **CLEARED → L2 + client round scheduled** | ✅ 10 → [§](#-mphasis--technical-round-6-aug-2026) |
-| | | | | **93 logged** |
+| 7 | **Virtusa** | **Round 2** (Java core) — *~18 Aug 2026* | ❌ Not cleared | ✅ 4 → [§](#-virtusa--round-2-java-core-aug-2026) |
+| 8 | **Tech Mahindra** | Angular Developer — *~22 Aug 2026* | 🟡 **RESULT PENDING** | ✅ 15 → [§](#-tech-mahindra--angular-developer-round-aug-2026) |
+| 9 | **Deloitte (USI)** | Fullstack Java + Angular · AI&E–EaaS · SWE II — **25 Aug 2026, 3 PM IST** | 🔵 **SCHEDULED** | → prep: [35](./35-deloitte-fullstack-java-angular-25aug.md) |
+| | | | | **112 logged** |
 
 > **Read this as data, not as a verdict.** Six companies, ~93 questions, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-5-rejections)** below.
 
@@ -34,11 +37,13 @@
 | **Photon Interactive** | Round 2 — Backend | 11 | [→](#-photon-interactive--round-2-backend) |
 | **Codeboard Technology** | Level 1 (single round) | 7 | [→](#-codeboard-technology--level-1-single-round) |
 | **Mphasis** | Technical — Java/Spring/microservices | 10 | [→](#-mphasis--technical-round-6-aug-2026) |
-| | | **93** | |
+| **Virtusa** | 🆕 Round 2 — Java core (HashMap, threads, interface vs abstract) | 4 | [→](#-virtusa--round-2-java-core-aug-2026) |
+| **Tech Mahindra** | 🆕 Angular Developer — full breadth sweep | 15 | [→](#-tech-mahindra--angular-developer-round-aug-2026) |
+| | | **112** | |
 
 ---
 
-## 🔍 What the pattern says (across 5 rejections)
+## 🔍 What the pattern says (across 6 rejections)
 
 **1. The question bank is small and it repeats.** Lifecycle hooks came up in **4** rounds. Component communication in **4**. `Subject` vs `BehaviorSubject`, unsubscribing, and reactive-vs-template forms in **2–3** each. You are not being asked 93 different things — you're being asked roughly **25 things, six times**. Master those 25 and most of a round is already won.
 
@@ -63,6 +68,8 @@
 # 🟪 Virtusa — Online Assessment
 
 > ⚠️ **Not logged yet.** You attended a Virtusa **online assessment** and weren't selected, but the questions weren't recorded.
+> 
+> ➡️ The **later Virtusa Round 2 (Java core) IS logged** — see [§ Virtusa — Round 2](#-virtusa--round-2-java-core-aug-2026).
 
 **Add whatever you can still recall**, even partially — section counts, topics, difficulty, time limits. Even *"3 coding questions, 45 minutes, one on arrays"* is worth writing down, because Virtusa reuses assessment platforms across drives.
 
@@ -1607,6 +1614,54 @@ if (lockA.tryLock(1, TimeUnit.SECONDS)) {
 3. **SQL appeared for the first time in six rounds.** Nothing in this pack covered it before today. If more rounds ask, that's a gap worth its own file — the joins/`GROUP BY`/`HAVING`/window-function set above is the core of it.
 4. **Q3 and Q4 are the same topic split in two** — concept, then *"which dependency?"*. Expect that pattern: they check whether you've actually wired it up or only read about it. The `spring-boot-starter-aop` answer is the tell.
 5. **Q10 was your best opportunity in the round** — an open question where you can lead with your real Angular experience. Prepare the layered answer; open-ended questions are where you can out-answer a backend-only candidate.
+
+---
+
+# 🟪 Virtusa — Round 2 (Java core), Aug 2026
+
+> ❌ **Not cleared.** A **Java-fundamentals** round — no Angular, no framework. It went deep on **one topic** rather than broad, which is the opposite of the Tech Mahindra round below. Full answers: **[31 — HashMap Internals](./31-hashmap-internals.md)**, **[32 — Multithreading](./32-multithreading.md)**, **[33 — Interface vs Abstract Class](./33-interface-vs-abstract-class.md)**.
+
+### 1. How does HashMap internally work?
+The 5 beats they wanted: **`Node<K,V>[] table`** (array of buckets) → **`hash()` spreads** with `h ^ (h >>> 16)` → index via **`(n - 1) & hash`** (power-of-two capacity makes `&` a fast modulo) → each bucket is a **linked list of `Node`s** chained by `next` → **treeified at 8** nodes if the table is ≥ 64 → **resize doubles at load factor 0.75**. Average O(1), worst O(log n). → **[31 §Part 0](./31-hashmap-internals.md)**
+
+### 2. What is a bucket/bin in a HashMap?
+**One slot of the internal array — `table[i]`.** Not a class. It holds either `null`, the head `Node` of a linked list, or the root `TreeNode` of a red-black tree. → **[31 §Part 2](./31-hashmap-internals.md)**
+
+### 3. What is the internal structure of a bucket?
+A chain of `Node<K,V>` objects: `final int hash` (cached — computed once), `final K key`, `V value`, `Node<K,V> next`. The `next` pointers *are* the linked list; there is no separate list object. After treeification the nodes become `TreeNode`s, which keep the `next`/`prev` links **as well as** the tree pointers — which is how a bin can be untreeified cheaply on resize. → **[31 §Part 1](./31-hashmap-internals.md)**
+
+### 4. Does a bucket contain a linked list?
+**Yes by default — but not always.** A singly linked list of `HashMap.Node` objects (⚠️ **not** a `java.util.LinkedList` — that answer sounds right and is wrong). Since Java 8, a bucket holding **8** nodes in a table of length **≥ 64** converts to a **red-black tree** — O(n) → O(log n), which was added both for performance and as a defence against hash-collision DoS. It reverts to a list at **6** during a resize; the 8/6 gap prevents convert-revert thrashing. → **[31 §Part 5](./31-hashmap-internals.md)**
+
+> **Also probed in this round:** multithreading and **interface vs abstract class** — hence files **[32](./32-multithreading.md)** and **[33](./33-interface-vs-abstract-class.md)**.
+
+> 💬 **What this round says:** Virtusa drilled **one** topic to the floor. That is the "second question" pattern from §What the pattern says, in its purest form — the opening question is easy and the round is decided by the **third** follow-up. HashMap internals has now been asked at **Altimetrik, Mphasis L1 and Virtusa R2** — it is the single most-repeated Java question in this log.
+
+---
+
+# 🟨 Tech Mahindra — Angular Developer round, Aug 2026
+
+> 🟡 **RESULT PENDING.** A **breadth sweep** — 15 short questions across Angular, TypeScript, the HTTP layer, core JavaScript and HTML/CSS. Full answers to every one: **[34 — Tech Mahindra Angular Round](./34-techmahindra-angular-round.md)**.
+
+| # | Question | Notes |
+|---|---|---|
+| 1 | State management | Answer as a **ladder**: component → `@Input`/`@Output` → service + `BehaviorSubject` → NgRx |
+| 2 | NgRx and its features | Store, actions, reducers, selectors, effects + `@ngrx/entity`, DevTools, ComponentStore |
+| 3 | "Any idea of TypeScript?" | Don't answer "yes" — 45 seconds of range: interfaces, generics, unions, utility types, strict mode |
+| 4 | HTTP interceptor and its benefits | Auth, errors, loading, logging, retry, caching + **clone the request**, order, `multi: true` |
+| 5 | String interpolation | `{{ }}`, one-way, sanitized, no side-effects; **don't call methods in templates** |
+| 6 | Observables vs Promises | ⭐ **4th round in a row** — stream/lazy/cancellable/operators vs single/eager/uncancellable |
+| 7 | HttpClient — features & benefits | Observables, typed JSON, interceptors, `HttpErrorResponse`, progress events, testing, XSRF |
+| 8 | Callback, callback hell | Pyramid of doom → Promises → async/await → RxJS; add `Promise.all` for independent calls |
+| 9 | Event capturing and bubbling | 3 phases, `addEventListener(..., true)`, `stopPropagation` vs `preventDefault`, delegation |
+| 10 | ES5 vs ES6 | `let`/`const`, arrows, classes, template literals, destructuring, spread, Promises, modules |
+| 11 | Arrow functions | The point is **lexical `this`** — plus no `arguments`, not a constructor, wrong for object methods |
+| 12 | OOP in TypeScript | 4 pillars + `private` vs `#private`, **structural typing**, one class / many interfaces |
+| 13 | Modules — how, and types | Both meanings: ESM/CommonJS/AMD/UMD **and** Angular root/feature/shared/core/routing/lazy + standalone |
+| 14 | `unknown` type and `never` type | `unknown` = type-safe `any` (narrow before use); `never` = no value → **exhaustiveness check** |
+| 15 | HTML and CSS | Semantics, box model, positioning, Flexbox vs Grid, specificity, responsive |
+
+> 💬 **What this round says:** a **breadth** round is won with crisp 3-sentence answers, not long ones — and it confirms the repeat list. **Observables vs Promises has now been asked in 4 rounds; interceptors in 3; state management/NgRx in 3.** Those aren't "likely" questions any more, they're certainties. If Tech Mahindra calls back, expect the inverse: 3 of these drilled deep, most likely NgRx effects, `switchMap` vs `mergeMap`, and a live component.
 
 ---
 
