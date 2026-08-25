@@ -7,3 +7,4 @@ build/
 .angular/
 .parcel-cache/
 *.log
+target/
