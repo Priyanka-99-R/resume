@@ -50,7 +50,7 @@
 | **11:00–11:45** | 🔴 **Angular — the four that always come** | Lifecycle hooks (asked in **4** rounds), component communication (**4**), Observables vs Promises (**4**), services & DI | [04](./04-angular.md) · **[34](./34-techmahindra-angular-round.md)** §6 |
 | **11:45–12:30** | 🟡 **RxJS + interceptors + forms** | `switchMap` vs `mergeMap` vs `concatMap`, `async` pipe & unsubscribing, HTTP interceptor + benefits, reactive vs template-driven | [20](./20-rxjs-operators.md) · [25](./25-angular-binding-forms.md) · [34](./34-techmahindra-angular-round.md) §4 |
 | **12:30–13:15** | 🍽️ **Lunch — properly, away from the screen** | | |
-| **13:15–13:45** | 🟡 **SQL + microservices** | Joins, `GROUP BY` vs `HAVING`, indexing, one window function; then REST vs microservices, service discovery, one resilience pattern | [30](./30-mphasis-level2-client-round.md) SQL §, [08](./08-microservices-basics.md) |
+| **13:15–13:45** | 🟡 **SQL + microservices** | Joins, `GROUP BY` vs `HAVING`, indexing, one window function; then REST vs microservices, service discovery, one resilience pattern | **[36](./36-sql-interview-questions.md)** Parts 0, 4, 6, 24 · [08](./08-microservices-basics.md) |
 | **13:45–14:15** | 🔴 **Multithreading — 30 min, high yield** | Thread vs Runnable, `start()` vs `run()`, `synchronized` vs `volatile`, deadlock + how you'd prevent and detect it | **[32](./32-multithreading.md)** Parts 0, 4, 5, 9 |
 | **14:15–14:40** | 🎯 **Dry run** | Say your intro, your project story, and 5 rapid-fire answers out loud. Then **stop revising.** | |
 | **14:40–14:55** | 🧘 **Log in early** | Join 5 minutes before. Camera on. Notepad, water, resume printout, JD open in a tab. | |
@@ -99,7 +99,7 @@ These are ranked by how often they've actually been asked across your six logged
 
 ## Cross-cutting (expect 2–4)
 
-25. **SQL:** a join + `GROUP BY … HAVING` question, and *"how would you speed up a slow query?"* → index the filtered/joined columns, check the execution plan, avoid `SELECT *`, watch the N+1.
+25. **SQL:** a join + `GROUP BY … HAVING` question, and *"how would you speed up a slow query?"* [36](./36-sql-interview-questions.md) → index the filtered/joined columns, check the execution plan, avoid `SELECT *`, watch the N+1.
     **Microservices:** why split, how services talk (REST/Feign/messaging), service discovery, one resilience pattern (circuit breaker), and **one honest sentence about the scale you actually worked at.**
 
 ---

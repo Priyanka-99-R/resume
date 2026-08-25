@@ -1397,6 +1397,8 @@ class Car {
 
 ### 8. Total employees and average salary per department 🔴 *(SQL)*
 
+> 🔗 **Full depth on this and every other SQL question → [36 — SQL: The Complete Interview File](./36-sql-interview-questions.md).**
+
 **Given:**
 ```
 dept     ( dept_id, dept_name )
@@ -1692,7 +1694,7 @@ A chain of `Node<K,V>` objects: `final int hash` (cached — computed once), `fi
 5. If it's an **Ionic** round → `ionViewWillEnter` vs `ngOnInit`, Capacitor, offline support.
 6. If it's a **Spring** round → `@Controller` vs `@RestController`, validation, global exception handling, `PUT` vs `PATCH`.
 7. If it's a **microservices/backend** round → Mphasis §Q1–Q4 + Q6 (microservices, patterns, circuit breaker + its dependency, Actuator), thread-safe Singleton, deadlock.
-8. If **SQL** is likely → Mphasis §Q8 — `LEFT JOIN` + `COUNT(column)`, `WHERE` vs `HAVING`, second-highest salary, `RANK()`/`PARTITION BY`.
+8. If **SQL** is likely → **[36 — SQL: The Complete Interview File](./36-sql-interview-questions.md)** — read **Part 0** (the two questions you were actually asked) and **Part 24** (the cheat sheet). Locally: Mphasis §Q8 below — `LEFT JOIN` + `COUNT(column)`, `WHERE` vs `HAVING`, second-highest salary, `RANK()`/`PARTITION BY`.
 
 ---
 

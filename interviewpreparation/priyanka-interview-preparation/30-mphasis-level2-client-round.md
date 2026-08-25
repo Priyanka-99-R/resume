@@ -1373,6 +1373,8 @@ public interface InventoryClient {
 
 🔴 **SQL appeared for the first time in six rounds — at Mphasis, at L1.** They asked a `GROUP BY` with a join. That thread is now open and L2 will pull it. This is the section to over-prepare.
 
+> 🔗 **This section is the compact version. The full treatment — every join, the whole salary-question family, window functions, NULL traps, indexing, 18 predict-the-output programs and 15 drills — is now in [36 — SQL: The Complete Interview File](./36-sql-interview-questions.md).**
+
 ### G1. Joins — the diagram to have in your head
 
 | Join | Returns |
