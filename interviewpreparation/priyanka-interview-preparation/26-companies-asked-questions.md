@@ -20,10 +20,12 @@
 | 6 | **Mphasis** | L1 Technical (Java/Spring/microservices) — *6 Aug 2026* | 🟢 **CLEARED → L2 + client round scheduled** | ✅ 10 → [§](#-mphasis--technical-round-6-aug-2026) |
 | 7 | **Virtusa** | **Round 2** (Java core) — *~18 Aug 2026* | ❌ Not cleared | ✅ 4 → [§](#-virtusa--round-2-java-core-aug-2026) |
 | 8 | **Tech Mahindra** | Angular Developer — *~22 Aug 2026* | 🟡 **RESULT PENDING** | ✅ 15 → [§](#-tech-mahindra--angular-developer-round-aug-2026) |
-| 9 | **Deloitte (USI)** | Fullstack Java + Angular · AI&E–EaaS · SWE II — **25 Aug 2026, 3 PM IST** | 🔵 **SCHEDULED** | → prep: [35](./35-deloitte-fullstack-java-angular-25aug.md) |
-| | | | | **112 logged** |
+| 9 | **Deloitte (USI)** | Fullstack Java + Angular · AI&E–EaaS · SWE II — *25 Aug 2026* | 🟡 **RESULT PENDING** | → prep: [35](./35-deloitte-fullstack-java-angular-25aug.md) |
+| 10 | **Altimetrik** | **Fullstack Java + Angular (2nd attempt)** — *31 Aug 2026* | ❌ Not cleared | ✅ 22 → [§](#-altimetrik--fullstack-java--angular-round-31-aug-2026) |
+| 11 | **IQVIA** | 🆕 **Angular/Ionic Technical Lead** — *coming days* | 🔵 **SCHEDULED** | → prep: **[38](./38-iqvia-technical-lead-prep.md)** |
+| | | | | **134 logged** |
 
-> **Read this as data, not as a verdict.** Six companies, ~93 questions, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-5-rejections)** below.
+> **Read this as data, not as a verdict.** Eight companies, **134 questions**, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-6-rejections)** below.
 
 ## Companies logged
 
@@ -38,8 +40,9 @@
 | **Codeboard Technology** | Level 1 (single round) | 7 | [→](#-codeboard-technology--level-1-single-round) |
 | **Mphasis** | Technical — Java/Spring/microservices | 10 | [→](#-mphasis--technical-round-6-aug-2026) |
 | **Virtusa** | 🆕 Round 2 — Java core (HashMap, threads, interface vs abstract) | 4 | [→](#-virtusa--round-2-java-core-aug-2026) |
-| **Tech Mahindra** | 🆕 Angular Developer — full breadth sweep | 15 | [→](#-tech-mahindra--angular-developer-round-aug-2026) |
-| | | **112** | |
+| **Tech Mahindra** | Angular Developer — full breadth sweep | 15 | [→](#-tech-mahindra--angular-developer-round-aug-2026) |
+| **Altimetrik** | 🆕 **Fullstack Java + Angular (31 Aug 2026)** — Spring depth + Angular + Streams | 22 | [→](#-altimetrik--fullstack-java--angular-round-31-aug-2026) |
+| | | **134** | |
 
 ---
 
@@ -94,15 +97,22 @@ Things worth capturing for any online assessment:
 
 | Asked in | Question | Answer lives in |
 |---|---|---|
-| **4 rounds** | **Angular lifecycle hooks** | [04](./04-angular.md) · Ionic variant in [15](./15-ionic-level1.md) |
+| **5 rounds** 🆕 | **Angular lifecycle hooks / `ngOnInit` vs constructor** | [04](./04-angular.md) · [37 Q15](./37-altimetrik-fullstack-java-angular-31aug.md) · Ionic variant in [15](./15-ionic-level1.md) |
+| **4 rounds** | **HTTP interceptors** 🆕 | [34 Q4](./34-techmahindra-angular-round.md) · [37 Q17](./37-altimetrik-fullstack-java-angular-31aug.md) |
 | **4 rounds** | **Component communication** | [04](./04-angular.md) · below |
+| **4 rounds** | **Observables vs Promises** | [20 — RxJS](./20-rxjs-operators.md) · [34 Q6](./34-techmahindra-angular-round.md) |
+| **4 rounds** | **Data binding / forms** 🆕 | [25 — Binding & Forms](./25-angular-binding-forms.md) · [37 Q20](./37-altimetrik-fullstack-java-angular-31aug.md) |
 | **3 rounds** | **Observable / Subject / BehaviorSubject** | [20 — RxJS](./20-rxjs-operators.md) |
+| **3 rounds** 🆕 | **Highest salary per department** (Streams **and** SQL) | [22](./22-java-streams-coding-problems.md) · [36](./36-sql-interview-questions.md) · [37 Q22](./37-altimetrik-fullstack-java-angular-31aug.md) |
+| **3 rounds** | **HashMap internals** | [31](./31-hashmap-internals.md) |
+| **3 rounds** 🆕 | **Lazy loading (+ its disadvantages)** | [04](./04-angular.md) · [37 Q21](./37-altimetrik-fullstack-java-angular-31aug.md) |
+| **3 rounds** 🆕 | **Microservices — communication & failure handling** | [08](./08-microservices-basics.md) · [37 Q11–13](./37-altimetrik-fullstack-java-angular-31aug.md) |
 | **2 rounds** | **Reactive vs template-driven forms** | [25 — Binding & Forms](./25-angular-binding-forms.md) |
-| **2 rounds** | **Interface vs abstract class** | [05](./05-java.md) · [16 §0](./16-codeboard-technology-level1.md) |
+| **2 rounds** | **Interface vs abstract class** | [05](./05-java.md) · [33](./33-interface-vs-abstract-class.md) |
 | **2 rounds** | **Unsubscribing / memory leaks** | [20](./20-rxjs-operators.md) |
 | **2 rounds** | **Global exception handling** | [06](./06-spring-boot.md) · below |
-| **2 rounds** | **Preventing duplicate API calls on rapid clicks** | below (Altimetrik Q9) |
-| **2 rounds** | **Microservices — what/how many services** | [08](./08-microservices-basics.md) · below (Photon R2 Q1, Mphasis Q1) |
+| **2 rounds** | **Preventing duplicate API calls on rapid clicks** | below (Altimetrik Q9) · [37 Q18](./37-altimetrik-fullstack-java-angular-31aug.md) (refresh stampede — same technique) |
+| **2 rounds** | **Spring stereotypes / DI wiring** 🆕 | [06](./06-spring-boot.md) · [37 Q3–7](./37-altimetrik-fullstack-java-angular-31aug.md) |
 
 ---
 
@@ -1667,6 +1677,49 @@ A chain of `Node<K,V>` objects: `final int hash` (cached — computed once), `fi
 
 ---
 
+# 🟨 Altimetrik — Fullstack Java + Angular round (31 Aug 2026)
+
+> 🆕 **Attended Sun 31 Aug 2026 · result pending. This is your SECOND Altimetrik round** — the first (Level 1 Java + Angular, 24 questions) is [§ above](#-altimetrik--level-1-round-java).
+> 📄 **Every one of these 22 questions is answered in full in → [37 — Altimetrik Fullstack Java + Angular (31 Aug)](./37-altimetrik-fullstack-java-angular-31aug.md).**
+>
+> **Shape:** **2 Java (records + pattern matching)** → **10 Spring/Spring Boot** → 2 microservices → 1 config/environments → 6 Angular → 1 Java Streams live-coding. Not a breadth sweep — a *depth* round on Spring wiring.
+
+| # | Question | Notes |
+|---|---|---|
+| 1 | 🔴 **What is a `record`? Why are we using it?** | **The opening question.** Transparent immutable data carrier (Java 16) — compiler generates ctor, `name()` accessors, `equals`/`hashCode`/`toString`; implicitly `final`; compact constructor for validation. **Why:** kills DTO boilerplate, immutable/thread-safe/safe map key, correct `equals` for free, signals intent. Traps: **shallow immutability**, `name()` not `getName()`, **can't be a JPA `@Entity`**; pairs with sealed types + pattern matching |
+| 2 | Pattern matching | `instanceof` pattern (**16**), `switch` patterns + `when` guards + record patterns (**21**); killer combo = `sealed` + switch → compiler-checked exhaustiveness |
+| 3 | Spring Boot annotations | Answer in **groups** (bootstrap / stereotype / DI / web / validation / JPA / config / test), close with "they're metadata — proxies do the work, which is why self-invocation breaks `@Transactional`" |
+| 4 | `@Component` and `@Service` | All stereotypes **are** `@Component`; **`@Repository` is the only one with real behaviour** (exception translation); `@Service` = intent + AOP pointcut |
+| 5 | Multiple packages — how does Spring read all the annotations? | Default scan = main class's package + sub-packages → `scanBasePackages`, **`scanBasePackageClasses`** (refactor-safe), filters; **plus `@EntityScan` + `@EnableJpaRepositories`**, and auto-configuration for a shared jar |
+| 6 | Reading the bean annotations (`@Bean`) | Stereotype = Spring builds it (your classes) · `@Bean` = you build it (third-party); bean name = method name; the `proxyBeanMethods` trap; bean lifecycle order |
+| 7 | `@Autowired`, `@Qualifier`, `@Primary` | Resolution is **by type first** → `NoUniqueBeanDefinitionException`. Precedence: **`@Qualifier` > `@Primary` > bean name**. Constructor injection; inject `Map`/`List` of all impls |
+| 8 | `CrudRepository` and `JpaRepository` | `JpaRepository` → `PagingAndSortingRepository` → `CrudRepository`; `List` vs `Iterable`, paging, `deleteAllInBatch`, `saveAndFlush`; `SimpleJpaRepository` behind a proxy |
+| 9 | Pagination methods | `Page<T> findByX(..., Pageable)`; `PageRequest.of(page, size, Sort)`; Boot binds `Pageable` from `?page&size&sort`; **OFFSET degrades → keyset paging**; pagination + `JOIN FETCH` = in-memory paging |
+| 10 | What classes are created in pagination | `Pageable` · **`PageRequest`** · `Sort`/`Sort.Order`/`Direction` · `Page`/**`PageImpl`** · `Slice`/`SliceImpl` · `Window`/`ScrollPosition`. ⭐ **`Page` runs 2 queries (incl. `COUNT`), `Slice` runs 1** |
+| 11 | Communication in microservices | Sync (REST, `WebClient`/`RestClient`, **Feign**, gRPC) vs async (**Kafka**/Rabbit/SQS) + discovery, gateway, config server, Resilience4j, tracing, Saga. Rule: *sync when I need the answer now, async when B just needs to eventually know* |
+| 12 | How do you handle error cascading? | Latency problem before an error problem: **timeouts → circuit breaker → retry w/ backoff → bulkhead → fallback**, `@RestControllerAdvice` + `ProblemDetail` + trace ID |
+| 13 | ⭐ Two microservices, network failure — A errors, how do you inform B? | **The sharpest question.** Caller can't tell "never arrived" from "response lost" → idempotency key. To *reliably* inform B: **transactional outbox** + Kafka + idempotent consumer + **DLQ**, compensating transaction if it can't complete |
+| 14 | Dev/QA/Prod properties, DB changed per environment | `application-{profile}.yml` + `SPRING_PROFILES_ACTIVE`; **one jar, many environments** — env vars/CLI override; `@Profile` beans; Config Server / ConfigMaps; secrets in Vault; **Flyway + `ddl-auto: validate` in prod** |
+| 15 | ⭐ `ngOnInit` and constructor | Constructor = **DI only, `@Input`s are `undefined`**; `ngOnInit` = after first `ngOnChanges`, inputs available → API calls. Full hook order. **5th round running** |
+| 16 | Decorator | Metadata function: class / property / method / parameter. `@Injectable({providedIn:'root'})` = tree-shakable; Angular 16+ moving to `input()`/`output()` signal functions |
+| 17 | ⭐ Interceptor | Functional `HttpInterceptorFn` + `withInterceptors`; **`req.clone()` — requests are immutable**, `multi: true`, order reverses on the response. **4th round running** |
+| 18 | Token expired — how do you notify the user? | 401 in the interceptor → **silent refresh** → toast + redirect to `/login` with `returnUrl`; proactive `exp` decode → "session expiring" dialog; auth guard; **gate the refresh stampede** with a `BehaviorSubject` |
+| 19 | How do you redirect to a page? | `routerLink` · `router.navigate`/`navigateByUrl` (+`replaceUrl`) · `redirectTo` with **`pathMatch: 'full'`** (else infinite loop) · guard returning a **`UrlTree`** · `window.location` for external |
+| 20 | ⭐ Angular core — data binding | 4 types: interpolation · property · event · two-way; `[(x)]` = `[x]` + `(xChange)`; don't call methods in templates; signals version |
+| 21 | ⭐ Lazy loading | `loadChildren`/`loadComponent`; **never also import the lazy module eagerly**; `PreloadAllModules` / custom strategy; disadvantages: first-nav delay, duplicated deps, per-module service instance, `ChunkLoadError`; `@defer` |
+| 22 | 🔴 **Highest-paid employee per department → department + name** | `groupingBy` + `collectingAndThen(maxBy(...), e -> e.map(Employee::getName))`, or the cleaner 3-arg `toMap` + `BinaryOperator.maxBy`. **Ties → `maxBy` keeps one.** Output: `IT -> Peter`, `Sales -> Liza` |
+
+> 💬 **What this round says:** Altimetrik tested **Spring wiring you can only know from building** — scanning across packages, `@Qualifier` vs `@Primary`, the repository hierarchy, the *classes* inside pagination. And **Q22 is the third time you've been asked highest-salary-per-department** (Altimetrik R1 in Streams, Mphasis in SQL, here again). Together with lifecycle hooks (**5 rounds**), interceptors (**4**), data binding (**4**) and lazy loading (**3**), the repeat list is now undeniable. The new muscle to build is **microservice failure vocabulary**: timeout · circuit breaker · retry+backoff · idempotency key · **transactional outbox** · DLQ · compensating transaction.
+
+---
+
+## 🔵 Next up — IQVIA (Angular / Ionic Technical Lead)
+
+> **They gave you the syllabus.** Ten areas, from Angular/Signals to Technical-Lead behaviour to AI-assisted development — all prepared in **[38 — IQVIA Full Prep Pack](./38-iqvia-technical-lead-prep.md)**.
+> **~75% of that checklist is frontend**, which is your strongest ground, plus a lead layer (code review, mentoring, incidents, tech debt, stakeholders) that is about judgement rather than syntax. **Log every question here the same day.**
+
+---
+
 ## ➕ Template — add your next round here
 
 ```markdown
@@ -1693,6 +1746,7 @@ A chain of `Node<K,V>` objects: `final int hash` (cached — computed once), `fi
 4. If it's an **Angular** round → lifecycle hooks, component communication, `Subject` vs `BehaviorSubject`, unsubscribing, forms.
 5. If it's an **Ionic** round → `ionViewWillEnter` vs `ngOnInit`, Capacitor, offline support.
 6. If it's a **Spring** round → `@Controller` vs `@RestController`, validation, global exception handling, `PUT` vs `PATCH`.
+6b. If it's a **Spring depth** round (Altimetrik-style wiring questions) → **[37 Parts 3](./37-altimetrik-fullstack-java-angular-31aug.md)** — component scanning across packages, `@Qualifier` vs `@Primary`, `CrudRepository` vs `JpaRepository`, the pagination classes.
 7. If it's a **microservices/backend** round → Mphasis §Q1–Q4 + Q6 (microservices, patterns, circuit breaker + its dependency, Actuator), thread-safe Singleton, deadlock.
 8. If **SQL** is likely → **[36 — SQL: The Complete Interview File](./36-sql-interview-questions.md)** — read **Part 0** (the two questions you were actually asked) and **Part 24** (the cheat sheet). Locally: Mphasis §Q8 below — `LEFT JOIN` + `COUNT(column)`, `WHERE` vs `HAVING`, second-highest salary, `RANK()`/`PARTITION BY`.
 
