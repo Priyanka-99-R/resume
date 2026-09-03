@@ -24,6 +24,7 @@
 | 10 | **Altimetrik** | **Fullstack Java + Angular (2nd attempt)** — *31 Aug 2026* | ❌ Not cleared | ✅ 22 → [§](#-altimetrik--fullstack-java--angular-round-31-aug-2026) |
 | 11 | **IQVIA** | 🆕 **Angular/Ionic Technical Lead** — *coming days* | 🔵 **SCHEDULED** | → prep: **[38](./38-iqvia-technical-lead-prep.md)** |
 | 12 | **Capgemini** | 🆕 **Java + Spring + Angular** — *Sept 2026* | 🟡 **RESULT PENDING** | ✅ 10 → [§](#-capgemini--java--spring--angular-round-sept-2026) · full answers: **[41](./41-capgemini-java-angular-3sep.md)** |
+| 13 | **TCS** | 🆕 **Face-to-Face (TR + MR + HR)** — *5 Sept 2026* | 🔴 **TOMORROW** | → prep: **[43](./43-tcs-face-to-face-5sep-plan.md)** |
 | | | | | **144 logged** |
 
 > **Read this as data, not as a verdict.** Nine companies, **144 questions**, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-6-rejections)** below.
