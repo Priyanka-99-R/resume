@@ -1,64 +1,193 @@
-# 🗓️ 2-Week Study Plan — Berribot-focused
+# 🗓️ Study Plan — IQVIA (Angular / Ionic Technical Lead)
 
-**Target:** Berribot — Senior Full Stack (Java 17 · Spring Boot · Angular 16 · MongoDB · MySQL · Microservices · AWS S3)
-**Window:** Wed 1 Jul 2026 → Interview-ready Tue 14 Jul 2026
-**Daily budget:** ~2–3 hrs weekdays, ~3–4 hrs weekends — adjust to your schedule.
-
-### Strategy
-- **Front-load your gaps** ([MongoDB](./13-mongodb.md), [Java 17](./12-java17-features.md)) so you have time to revisit, not cram them last.
-- **Lead with strength** ([Angular](./04-angular.md), [Spring Boot](./06-spring-boot.md), [Projects](./10-projects-deep-dive.md)) — most interview time lands here.
-- **Self-intro + Projects early AND revised throughout** — asked in every round.
-- **Say answers out loud. Type the code yourself.** Passive reading ≠ prepared.
+> ⚠️ **This plan replaces the old July/Berribot one.** Rewritten **3 Sept 2026** for your actual next interview.
+>
+> **Target:** IQVIA — Angular / Ionic **Technical Lead**
+> **Their checklist:** ~**75% frontend** (Angular · TS/JS · RxJS/NgRx · Ionic+Capacitor) + REST/Security · MongoDB/SQL · Microservices · Git/CI-CD/AWS · **Tech Lead** · AI-assisted dev
+> **Main file:** **[38 — IQVIA Full Prep Pack](./38-iqvia-technical-lead-prep.md)** — everything below feeds into it.
 
 ---
 
-## Week 1 — Foundations + close the gaps
+## 🧠 The one thing that decides this round
 
-| Day | Date | Focus | Goal for the day |
-|-----|------|-------|------------------|
-| 1 | Wed 1 Jul | [00 Self-Intro](./00-self-introduction.md) + [10 Projects](./10-projects-deep-dive.md) | 60s intro from memory; 1 STAR story per project |
-| 2 | Thu 2 Jul | [13 MongoDB](./13-mongodb.md) — *biggest gap* | Document model, CRUD, aggregation, Spring Data (@Document, MongoRepository) |
-| 3 | Fri 3 Jul | [12 Java 17](./12-java17-features.md) + start [05 Core Java](./05-java.md) | Records, sealed classes, pattern matching, switch expr, text blocks |
-| 4 | Sat 4 Jul | [05 Core Java](./05-java.md) finish + start [01 JavaScript](./01-javascript.md) | OOP, collections, HashMap internals, streams, multithreading |
-| 5 | Sun 5 Jul | [01 JavaScript](./01-javascript.md) finish + [03 TypeScript](./03-typescript.md) | Closures, event loop, ES6+; types vs interfaces, generics, utility types |
-| 6 | Mon 6 Jul | [04 Angular](./04-angular.md) part 1 — *core skill* | Lifecycle, RxJS (switchMap vs mergeMap, takeUntil), change detection |
-| 7 | Tue 7 Jul | [04 Angular](./04-angular.md) part 2 + Angular 16 talking points ([§14](./14-berribot-assessment-guide.md)) | NgRx, forms, DI, routing; standalone components, signals, takeUntilDestroyed |
+```
+This role is 75% YOUR STRONGEST GROUND. ⭐
 
-**End of Week 1 checkpoint**
-- [ ] 60-second self-intro smooth without notes
-- [ ] Can explain MongoDB vs MySQL and write a basic aggregation + MongoRepository
-- [ ] Can name 5 Java 17 features and where you'd use them
-- [ ] Can explain RxJS switchMap vs mergeMap and the takeUntil unsubscribe pattern
+Altimetrik was lost on Spring depth. IQVIA is Angular + Ionic —
+which is what you build every day. Do NOT over-prepare backend
+at the cost of the frontend lead answers. ⭐
+```
 
----
+### The three habits — apply them to every answer
 
-## Week 2 — Backend depth, coding, full-stack design, mocks
+```
+1. DEFINITION → then ONE thing from YOUR code → then ONE trade-off ⭐
+      "OnPush skips checking unless an input reference changes.
+       We use it on the progress lists — not globally, because on a
+       mature codebase that ships silent bugs wherever an array is mutated."
 
-| Day | Date | Focus | Goal for the day |
-|-----|------|-------|------------------|
-| 8  | Wed 8 Jul  | [06 Spring & Spring Boot](./06-spring-boot.md) + MySQL/JPA | IoC/DI, REST, JPA, auto-config, exception handling, security basics |
-| 9  | Thu 9 Jul  | [09 Coding Problems](./09-coding-problems.md) part 1 — *write on paper* | FizzBuzz, palindrome, two-sum, reverse-string from memory |
-| 10 | Fri 10 Jul | [09 Coding Problems](./09-coding-problems.md) part 2 + re-solve hard ones | Type solutions yourself, check complexity, no peeking |
-| 11 | Sat 11 Jul | [08 Microservices](./08-microservices-basics.md) + [07 AWS S3](./07-aws-basics.md) + full-stack scenario ([§14](./14-berribot-assessment-guide.md)) | Whiteboard upload→S3 + metadata-in-DB with presigned URLs |
-| 12 | Sun 12 Jul | [02 HTML & CSS](./02-html-css.md) + [11 HR & Behavioral](./11-hr-behavioral.md) | Flexbox/Grid, specificity; Why Wipro, strengths/weaknesses, notice, salary |
-| 13 | Mon 13 Jul | [14 Berribot Guide](./14-berribot-assessment-guide.md) full read + revise weak areas | Polyglot persistence, senior-level ownership talking points |
-| 14 | Tue 14 Jul | **Mock interview** + final revision of flagged gaps | Full dry run: intro → coding → backend → frontend → design → HR |
+2. Say the NUMBER, not the adjective ⭐
+      ❌ "we handle subscriptions carefully"
+      ✅ "over four hundred takeUntil calls" ⭐
 
-**Interview-day checklist**
-- [ ] Can draw RoboGebra & EasyVisa architecture on a whiteboard
-- [ ] One strong "challenge I solved" STAR story per project
-- [ ] Can explain Spring Boot auto-configuration & @SpringBootApplication
-- [ ] Can whiteboard the S3 upload + metadata flow with presigned URLs
-- [ ] Can split a feature into microservices and justify the boundaries
-- [ ] 2–3 thoughtful questions ready for the interviewer
-- [ ] Honest about AWS / Microservices / MongoDB depth — don't oversell
+3. When you haven't used it, say the MIGRATION PLAN ⭐
+      ❌ "yes we use signals"
+      ✅ "studied, not shipped — I'd start with signal inputs on leaf components"
+```
 
 ---
 
-## If you only have ONE week (compressed track)
-~4 hrs/day: **Day1** MongoDB(13) · **Day2** Java17(12)+Core Java(05) · **Day3** Spring Boot+REST+JPA(06)+S3 scenario · **Day4** Angular 16(04) · **Day5** Microservices(08)+Coding(09) · **Day6** JS/TS(01,03)+HTML/CSS(02) · **Day7** Self-intro(00)+Projects(10)+HR(11)+mock.
+## 📅 The plan — 7 days (compress or stretch to your window)
 
-## Daily habits (all 14 days, 15–20 min)
-- Re-deliver your 60s self-intro out loud.
-- Re-solve one coding problem from memory.
-- Skim the previous day's section headers (spaced repetition).
+### Day 1 — Your story + your evidence ⭐
+
+```
+□ [00 Self-Intro] — the 60-second version, out loud, 5 times ⭐
+□ [39 RoboGebra Code Examples] — the whole file
+□ [38 IQVIA] §"YOUR EVIDENCE" table — one real file per area ⭐
+□ Fill in the [COMPANY] blanks: "Why IQVIA?" + "What do you know about IQVIA?"
+
+GOAL: the 60-second intro with NO notes, ending on
+      "I built the Ionic mobile app for iOS and Android" ⭐
+```
+
+### Day 2 — Angular core (their biggest area)
+
+```
+□ [04 Angular] — lifecycle · DI · routing/guards · change detection ⭐
+□ [38 IQVIA] Part 1 (all of it — 1.1 → 1.13)
+□ Re-read the SIGNALS honesty guard ⭐ (you have 0 usages)
+
+GOAL: lifecycle order cold · OnPush's 4 triggers · 5 sources of memory leaks
+      Say the guard answer for signals out loud ⭐
+```
+
+### Day 3 — RxJS + state
+
+```
+□ [20 RxJS] — the four flattening operators + WHERE catchError goes ⭐
+□ [21 NgRx] — the bank-ledger model + "why we chose NOT to use it" ⭐
+□ [38 IQVIA] Part 3
+
+GOAL: draw the 4 marble diagrams from memory ⭐
+      write the typeahead pipeline (debounceTime → filter → switchMap) cold ⭐
+      say the "BehaviorSubject not NgRx, deliberately" answer ⭐
+```
+
+### Day 4 — Ionic + Capacitor ⭐ YOUR DIFFERENTIATOR
+
+```
+□ [15 Ionic] — lifecycle ⭐ · CSS variables/Shadow DOM · storage · plugins
+□ [38 IQVIA] Part 4
+□ Memorise your 19 plugins and the 3 with a story ⭐
+
+GOAL: ngOnInit vs ionViewWillEnter, with the STALE LIST bug ⭐
+      "Preferences over localStorage — the OS can evict WebView storage" ⭐
+      Rehearse the mobile-app story until it's smooth ⭐⭐
+```
+
+⭐ **Most Angular candidates cannot answer this section at all. It's on their list. This is where you win.**
+
+### Day 5 — TypeScript + REST/Security + data
+
+```
+□ [03 TypeScript] — generics ⭐ · type guards · utility types · strict flags
+□ [38 IQVIA] Parts 2, 5, 6
+□ [13 MongoDB] — the N+1 → aggregation story ⭐
+□ [36 SQL] — the 3 master ideas + joins + GROUP BY/HAVING
+
+GOAL: explain PageResponse<T> + fromJSON<U> ⭐
+      the JWT/Cognito/JWKS answer ⭐
+      the N+1 aggregation story, three questions deep ⭐
+```
+
+### Day 6 — Tech Lead + architecture ⭐
+
+```
+□ [38 IQVIA] Part 9 (Technical Lead) + Part 10 (AI-assisted dev) ⭐
+□ [10 Projects] — the CAPS frame + your 3 hard-problem stories
+□ [08 Microservices] — the "modular monolith, monolith first" answer ⭐
+□ [07 AWS] — S3 presigned URLs · Cognito · LocalStack · Jenkins ⭐
+
+GOAL: draw YOUR architecture from memory (4 clients → Spring Boot →
+      MongoDB/S3/Cognito/Firebase/Razorpay) ⭐
+      The Angular 16 migration as your LEADERSHIP story ⭐
+      Code review, mentoring, tech-debt and estimation answers ready
+```
+
+### Day 7 — Mock + the honesty pass ⭐
+
+```
+□ Full dry run, out loud: intro → Angular → RxJS → Ionic → lead → questions
+□ Re-read the FOUR "do not claim" items ⭐
+□ [11 HR] — the STAR stories + your questions for them
+□ Re-read [18] the version numbers — say them without pausing ⭐
+
+GOAL: nothing surprises you. You know what you'll say when you DON'T know.
+```
+
+---
+
+## ⚠️ The four things to never claim — read this the morning of
+
+```
+❌ SIGNALS          → 0 usages  → "studied, not shipped; I'd start with signal inputs" ⭐
+❌ STANDALONE       → 2 only    → "new code is standalone-first; legacy converts when touched" ⭐
+❌ NgRx on RoboGebra→ 0 usages  → "that was EasyVisa; here we chose BehaviorSubject deliberately" ⭐
+❌ MICROSERVICES    → monolith  → "modular monolith. Monolith first." ⭐
+
+And the stack facts:
+   RoboGebra = MONGODB (not MySQL) ⭐
+   Angular 16.2 web · 18.2 mobile · Ionic 8.7.5 · Capacitor 6.2.1
+   Java 17 · Spring Boot 3.2.0
+```
+
+⭐ **Every one of these is stronger as an honest answer.** For a *lead* role they are testing judgement, not vocabulary — "we chose not to, and here's the trade-off" beats the buzzword every time.
+
+---
+
+## 🎯 Interview-day checklist
+
+```
+□ 60-second intro, no notes, ending on the IONIC MOBILE APP ⭐
+□ "Why IQVIA?" and "What do you know about IQVIA?" — SPECIFIC, not generic ⭐
+□ Three stories rehearsed:
+     Ionic mobile app ⭐⭐ | N+1 aggregation fix ⭐⭐ | Angular 16 migration ⭐
+□ Can draw YOUR architecture on a whiteboard ⭐
+□ Version numbers without pausing ⭐
+□ The healthcare line, used once early:
+     "I'd treat auditability and PHI handling as functional requirements,
+      not afterthoughts" ⭐
+□ 2–3 questions ready for them ⭐
+□ The four "do not claim" items firmly in mind ⭐
+```
+
+---
+
+## 📚 If you only have ONE day
+
+```
+MORNING   [00] intro out loud ⭐ · [39] your evidence ⭐ · [38] the EVIDENCE table
+MIDDAY    [38] Part 1 Angular · Part 3 RxJS · Part 4 IONIC ⭐⭐
+AFTERNOON [38] Part 9 Tech Lead ⭐ · the 3 stories rehearsed
+EVENING   the four "do not claim" items · version numbers · your questions ⭐
+```
+
+---
+
+## 🔁 After the interview — do this the same day
+
+Add the round to **[26 — Companies: Questions Actually Asked](./26-companies-asked-questions.md)** while it's fresh:
+
+```
+□ Every question they asked, in their words
+□ What you answered — and what you WISH you'd answered ⭐
+□ Anything you couldn't answer → that's your next study item ⭐
+□ The format (rounds, duration, who was on the call)
+```
+
+⭐ That log is why this pack keeps getting sharper. **The same ~25 topics repeat across companies** — lifecycle hooks have now come up in five rounds, interceptors in four.
+
+---
+
+**Related files:** [38 — IQVIA Prep](./38-iqvia-technical-lead-prep.md) ⭐ · [39 — RoboGebra Code Examples](./39-robogebra-code-examples.md) · [00 — Self-Introduction](./00-self-introduction.md) · [26 — Companies Asked](./26-companies-asked-questions.md) · [18 — RoboGebra Versions](./18-robogebra-technical-versions.md)

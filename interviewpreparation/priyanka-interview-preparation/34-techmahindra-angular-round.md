@@ -4,6 +4,24 @@
 
 > **Read the shape of this round:** it was a **breadth sweep** — Angular state → NgRx → TypeScript → HTTP layer → core JavaScript → HTML/CSS. Short questions, many topics, no deep coding. That kind of round is won by **crisp 3-sentence answers with one concrete example each**, not by long explanations. If you get a second round with them, expect the opposite: they'll pick 3 of these and drill.
 
+
+> ## 🔵 Answer these with YOUR CODE, not with definitions ⭐
+>
+> The questions in this file repeat across companies. What changes the outcome is **finishing each answer with one concrete thing from your own codebase**:
+>
+> ```
+> Lifecycle hooks (5 rounds ⭐) → "ngOnDestroy in 100 components, 426 takeUntil"
+> Interceptors (4 rounds ⭐)    → the FormData Content-Type trap + cancelRequests$
+> Observable vs Promise (4 ⭐)  → "switchMap 246 times — the auth interceptor and every search"
+> Data binding (4 rounds)      → 252 @Input, and OnPush on the 6 heavy components
+> HashMap internals (3 rounds) → the N+1 aggregation fix (same reasoning, in Mongo)
+> Lazy loading (3 rounds)      → 27 route resolvers, access-ruler resolvers
+> ```
+>
+> **Definition → one thing from my code → one trade-off.** Three sentences. That is what five years sounds like.
+> Full inventory: **[39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
+
+
 ---
 
 ## The questions they asked

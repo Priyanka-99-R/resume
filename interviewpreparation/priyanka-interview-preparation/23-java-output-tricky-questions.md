@@ -15,6 +15,46 @@
 
 ---
 
+## Easy memory — the 6 rules that decide 90% of these programs
+
+Before you trace a single line, run through these. Most "tricky" programs are decided by one of them.
+
+```
+1. OVERLOADING is decided at COMPILE time by the REFERENCE type
+   OVERRIDING  is decided at RUNTIME   by the OBJECT type              ⭐
+      → methodTest(null) picks the MOST SPECIFIC type (String beats Object)
+
+2. FIELDS and STATIC methods are NOT polymorphic — they use the REFERENCE type
+   Only INSTANCE methods are polymorphic                                ⭐
+      → Parent p = new Child();  p.field → PARENT's | p.method() → CHILD's
+
+3. An OVERRIDE may not: widen `throws`, reduce visibility, or change the signature
+
+4. String LITERALS are POOLED; `new String()` never is
+   Compile-time constant folding ("hel" + "lo") is pooled;
+   runtime concatenation is not                                         ⭐
+
+5. Integer CACHE is -128..127. Mixing a wrapper with a primitive UNBOXES.
+   Unboxing a null → NullPointerException                               ⭐
+
+6. `finally` ALWAYS runs, and a `return` inside it WINS
+   (and silently swallows the exception)                                ⭐
+```
+
+**The order to think in:**
+
+```
+(a) Does it even COMPILE?           ← most questions are won here
+        ↓ yes
+(b) Is anything resolved at COMPILE time rather than runtime?
+        ↓ no
+(c) NOW trace the runtime.
+```
+
+Candidates lose marks by jumping straight to (c).
+
+---
+
 ## Table of contents
 
 | # | Section | What it tests |
@@ -2153,6 +2193,70 @@ Child(int)
 **5. Connect the questions.** Both of the programs you were asked test the same axis — **compile-time vs runtime binding**. Pointing that out ("these are really the same question from two directions") is a senior-level move.
 
 **6. If you genuinely don't know:** *"I'd guess X because of [rule], but I'd want to run it to be sure — this is exactly the kind of thing I'd write a quick unit test for."* Honest reasoning beats a confident wrong answer.
+
+---
+
+## Quick Revision Sheet — the traps grouped by memory hook
+
+```
+OVERLOADING (compile time) ⭐
+  null → the MOST SPECIFIC type wins (String beats Object)
+  two SIBLING types (String/Integer) → AMBIGUOUS → compile error
+  resolution order: WIDENING > BOXING > VARARGS                    ⭐
+  return type ALONE can never overload
+
+OVERRIDING (runtime) ⭐
+  cannot WIDEN throws | cannot REDUCE visibility | return must be covariant
+  static  → HIDDEN, not overridden → the REFERENCE type wins
+  fields  → NOT polymorphic       → the REFERENCE type wins        ⭐
+  private/final/static → not overridable
+  calling an overridable method from a CONSTRUCTOR → child fields are still 0/null 💥
+
+INITIALISATION ORDER
+  static block → instance block → constructor
+  parent FIRST, always (super() runs before the child's field initialisers) ⭐
+
+STRING
+  literals are POOLED → "a" == "a" is true
+  new String() → always a new object → == is false
+  "hel" + "lo"        → folded at COMPILE time → pooled → true      ⭐
+  part + "lo" (non-final var) → RUNTIME concat → not pooled → false
+  String is IMMUTABLE → s.concat("x") does NOTHING unless you assign it
+
+AUTOBOXING
+  Integer cache = -128..127 → == true inside, false outside          ⭐
+  wrapper == primitive → the wrapper is UNBOXED → compares VALUES → true
+  unboxing NULL → NullPointerException                               ⭐
+  ternary numeric promotion: true ? Integer : Double → 1.0
+
+OPERATORS / NUMBERS
+  i = i++      → 0  (the assignment overwrites the increment)        ⭐
+  0.1 + 0.2    → 0.30000000000000004 (IEEE-754)
+  1/0 throws | 1.0/0 → Infinity | NaN == NaN → false
+  byte b = b + 5;  → compile error (promoted to int)
+  byte b += 5;     → fine (+= has an IMPLICIT cast)                  ⭐
+
+try / catch / finally
+  finally ALWAYS runs; a return in finally WINS and SWALLOWS the exception 💥
+  the return VALUE is captured BEFORE finally runs (primitives)
+  catch order must be SPECIFIC → GENERAL, else compile error
+  try-with-resources closes in REVERSE order, BEFORE catch/finally    ⭐
+  System.exit(0) → finally is SKIPPED
+
+COLLECTIONS
+  list.remove(1) on List<Integer> → removes INDEX 1 (remove(int) wins) ⭐
+  Arrays.asList(...).add() → UnsupportedOperationException
+  removing during a for-each → ConcurrentModificationException → use removeIf ⭐
+  HashSet of "equal" objects without equals/hashCode → size 2
+  TreeMap.put(null, v) → NPE (it must compare the key)
+  Object[] o = new String[3]; o[1] = 42; → ArrayStoreException
+
+STATIC / THREADS
+  nullRef.staticMethod() → RUNS FINE (statics don't dereference)      ⭐
+  t.run()  → "main"      | t.start() → "Thread-0"                     ⭐
+  t.start() twice → IllegalThreadStateException
+  String.valueOf(null) → NPE (it picks valueOf(char[]))
+```
 
 ---
 

@@ -48,6 +48,50 @@ The deep-dive companion to the short RxJS section in [04-angular.md](./04-angula
 
 ---
 
+## 🧠 The easiest way to remember ALL of RxJS
+
+Everything in this file hangs off **three ideas**. If you can say these, you can reason your way to any answer.
+
+```
+1. A stream is a CONVEYOR BELT.
+   Values arrive over time. Operators are MACHINES sitting on the belt.
+   Nothing moves until someone switches it on (subscribe). ⭐
+
+2. An ERROR is a BROKEN BELT. It stops forever.
+   → which is why WHERE you put catchError decides whether the belt survives ⭐
+
+3. A subscription is a RUNNING MOTOR.
+   If you never switch it off, it keeps running after the component is gone.
+   → that's a memory leak ⭐
+```
+
+### The real-world analogy for every operator group
+
+| Group | Analogy | Operators |
+|---|---|---|
+| **Creation** | starting the belt | `of` `from` `timer` `interval` `fromEvent` |
+| **Transformation** | a machine that reshapes each item | `map` `scan` |
+| **Flattening** | what to do when a *new order* arrives mid-job | `switchMap` `mergeMap` `concatMap` `exhaustMap` ⭐ |
+| **Filtering** | a quality-control gate | `filter` `debounceTime` `distinctUntilChanged` `take` |
+| **Combination** | merging two belts into one | `forkJoin` `combineLatest` `zip` `merge` |
+| **Error handling** | a repair station | `catchError` `retry` `finalize` |
+| **Multicasting** | one belt feeding several packers | `share` `shareReplay` |
+
+### Easy memory
+
+```
+Stream = a CONVEYOR BELT 🏭 — lazy until subscribed ⭐
+Error  = the belt BREAKS permanently ⭐
+Subscription = a MOTOR you must switch off ⭐
+
+The 3 answers that decide the round:
+   1. the four flattening operators, and when each is WRONG
+   2. WHERE catchError goes, and why
+   3. how you prevent subscription leaks
+```
+
+---
+
 # Part 1 — Fundamentals
 
 ### Q: What is RxJS and why does Angular use it?
@@ -162,22 +206,51 @@ r.next(1); r.next(2); r.next(3);
 r.subscribe(v => console.log('R:', v));   // R: 2, R: 3
 ```
 
-### ⭐ The service + BehaviorSubject pattern (your actual RoboGebra state management)
+### 🔵 In your RoboGebra code — the real state layer ⭐
+
+**File:** `robogebra-mobile/src/app/core/services/user-summary.service.ts`
+**122 `BehaviorSubject` usages** across the app — this *is* your state management.
+
+```ts
+@Injectable({ providedIn: 'root' })                       // ⭐ app-wide singleton
+export class UserSummaryService {
+
+    private userSummarySubject$ = new BehaviorSubject<UserSummaryGroupDTO>(null);
+    private bannerVisibilitySubject$ = new BehaviorSubject<boolean>(false);
+    private expiredModalVisibilitySubject$ = new BehaviorSubject<boolean>(false);
+
+    getUserSummarySubject(): Observable<UserSummaryGroupDTO> {
+        return this.userSummarySubject$.asObservable();    // ⭐ READ-ONLY to the outside
+    }
+
+    getUserSummary(): UserSummaryGroupDTO {
+        return this.userSummarySubject$.getValue();        // ⭐ SYNCHRONOUS read
+    }
+
+    // The signed-in user's institute code — read synchronously so callers that
+    // CAN'T subscribe (the X-Institute-Code interceptor) still get the value.
+    getInstituteCode(): string | null {
+        return this.getUserSummary()?.getInstituteCode() || null;
+    }
+}
+```
+
+> 🗣️ **Say this:** *"We manage shared state with services holding a `BehaviorSubject`, exposed as a read-only observable via `asObservable()` so only the service can push. `BehaviorSubject` specifically, for two reasons: a component created later — a lazy page or a modal — still needs the **current** user, not just the next change; and `getValue()` gives a synchronous read for callers that can't subscribe, like our institute-code HTTP interceptor. Components consume it with the `async` pipe, which handles unsubscription for free."*
+
+⭐ Two details that score: **the private subject + `asObservable()` encapsulation**, and **why a synchronous accessor exists at all**.
+
+#### The generic pattern, for when they ask you to write one
 
 ```ts
 @Injectable({ providedIn: 'root' })
 export class StudyListService {
   private studyListSubject = new BehaviorSubject<StudyItem[]>([]);
+  readonly studyList$ = this.studyListSubject.asObservable();   // ⭐ read-only
 
-  // Expose as Observable so components can't call .next() from outside
-  readonly studyList$ = this.studyListSubject.asObservable();
-
-  get current(): StudyItem[] {
-    return this.studyListSubject.value;      // synchronous read
-  }
+  get current(): StudyItem[] { return this.studyListSubject.value; }
 
   addItem(item: StudyItem): void {
-    this.studyListSubject.next([...this.current, item]);   // immutable update
+    this.studyListSubject.next([...this.current, item]);        // ⭐ IMMUTABLE update
   }
 }
 ```
@@ -321,6 +394,48 @@ fromEvent(this.submitBtn.nativeElement, 'click').pipe(
 > 💬 **The answer that lands:** *"They all flatten inner observables; the difference is the cancellation strategy. `switchMap` cancels the previous — right for search, wrong for saves because you'd cancel a real write. `concatMap` queues and preserves order — right for saves. `mergeMap` runs everything in parallel — right for independent uploads. `exhaustMap` ignores new emissions while one is in flight — right for a submit button, since it kills double-submits for free."*
 
 > ⚠️ **Danger:** using `switchMap` for a POST/PUT can cancel a request the server has already started processing, leaving you inconsistent. **Default to `concatMap` for writes and `switchMap` for reads.**
+
+### 🧠 Real-world analogies — the fastest way to keep these four straight
+
+```
+switchMap  → changing the TV CHANNEL 📺
+             the old programme stops INSTANTLY. Only the latest matters.
+
+mergeMap   → opening SEVERAL TAPS 🚰
+             all fill at once, in whatever order they finish.
+
+concatMap  → a QUEUE at a ticket counter 🎫
+             one at a time, strictly in the order people arrived.
+
+exhaustMap → a LIFT 🛗
+             pressing the button again while the doors close does NOTHING.
+```
+
+### 🔵 In your RoboGebra code — be precise and honest
+
+```
+switchMap  → 246 usages ⭐   (the auth interceptor, every search, dependent loads)
+mergeMap   → 0
+concatMap  → 0
+exhaustMap → 0
+```
+
+> 🗣️ *"We use `switchMap` heavily — in the HTTP auth interceptor, where the token itself arrives asynchronously, and in every search box, because latest-wins is what you want for reads. We haven't needed `concatMap` or `exhaustMap` yet, but I know exactly where they belong: `concatMap` for ordered writes so a save is never cancelled, and `exhaustMap` on a submit button to kill double-submits without any disabled-button plumbing."*
+
+⭐ Saying *"we haven't needed X, but here's where it belongs"* is far stronger than pretending. It proves the knowledge is real rather than recited.
+
+### Easy memory
+
+```
+switchMap  CANCEL previous ⭐  📺 TV channel   → SEARCH / reads (latest wins)
+mergeMap   PARALLEL           🚰 many taps    → independent work (uploads)
+concatMap  QUEUE in order ⭐   🎫 ticket queue → WRITES / saves (never cancel a write!)
+exhaustMap IGNORE new ⭐       🛗 a lift        → submit button, login (no double-submit)
+
+RULE: switchMap for READS, concatMap for WRITES ⭐
+Why switchMap for search: it prevents an OUT-OF-ORDER response —
+a slow "alge" landing after a fast "algebra" and overwriting it ⭐
+```
 
 ---
 
@@ -651,6 +766,45 @@ Fine, but more manual bookkeeping than `takeUntil`.
 
 ---
 
+### 🔵 In your RoboGebra code — leak prevention at scale ⭐
+
+```
+takeUntil            → 426 usages ⭐
+takeUntilDestroyed   →   5 usages   (the newer code)
+async pipe           → 311 usages ⭐
+ngOnDestroy          → 100 components
+finalize             → 254 usages ⭐  (hiding the busy spinner)
+catchError           → 338 usages
+```
+
+Even the **HTTP interceptor** uses `takeUntil` — for something clever:
+
+**File:** `core/interceptors/header-authorization.interceptor.ts`
+
+```ts
+private readonly cancelRequests$: Subject<void> = new Subject<void>();
+
+private invokeHttpCall(req, next): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+        takeUntil(this.cancelRequests$),      // ⭐ ONE emit cancels EVERY in-flight request
+        catchError(error => this.handleUnAuthResponse(error, req, next))
+    );
+}
+
+ngOnDestroy(): void {
+    this.cancelRequests$.next();
+    this.cancelRequests$.complete();
+}
+```
+
+> 🗣️ *"`takeUntil` isn't only for component cleanup. In our auth interceptor there's a `cancelRequests$` subject, so on logout a single `next()` aborts every in-flight HTTP request at once — otherwise a slow response from the previous session can land after the user has already signed out."*
+
+⭐ That is a genuinely good, non-textbook use of `takeUntil`.
+
+**And the 254 `finalize` usages:** *"`finalize` guarantees the busy spinner is hidden whether the call succeeded, failed, or was cancelled — `catchError` alone wouldn't cover the unsubscribe path."*
+
+---
+
 # Part 10 — Real Angular scenarios
 
 Rehearse these — they're what "have you used RxJS in production?" is really asking.
@@ -672,6 +826,25 @@ results$ = this.searchControl.valueChanges.pipe(
 );
 ```
 Be ready to justify **every operator** — that's the real question.
+
+#### 🔵 Your real one — `features/pages/study-materials/study-materials.component.ts:288`
+
+```ts
+this.loadVideosSubject$.pipe(
+    takeUntil(this.destroy$),
+    debounceTime(500),                        // ⭐ wait for the typing to stop
+    tap(() => (this.isLoading = true)),
+    filter(() => {                             // ⭐ don't search on 1–2 characters
+        const query = this.searchTerm?.trim() || '';
+        return query.length === 0 || query.length >= 3;
+    }),
+    switchMap(() => this.studyMaterialService.search(query, tags, ...))  // ⭐ cancels the previous
+)
+```
+
+The same pipeline appears in `help-page.component.ts` and `parent-info.component.ts` (there with `distinctUntilChanged` for an async availability check). **13 `debounceTime` usages** in total.
+
+---
 
 ### 2. Dependent dropdowns (chapter → exercise)
 
@@ -705,6 +878,31 @@ this.submitClicks$.pipe(
   takeUntilDestroyed()
 ).subscribe(result => this.router.navigate(['/result', result.id]));
 ```
+
+#### 🔵 Your real `forkJoin` — `app.component.ts:166`
+
+```ts
+this.isLoggedIn$().pipe(
+    filter(Boolean),
+    filter(() => !this.authService.isLoggedInAsParent()),
+    switchMap(() => forkJoin({                       // ⭐ three calls IN PARALLEL
+        userSummary:    this.userSummaryService.fetchUserSummary(),
+        userProfile:    this.userService.fetchUserProfile(false),
+        userPreference: this.userPreferenceService.fetchUserPreference(false)
+    })),
+    takeUntil(this.destroy$)
+).subscribe({
+    next: async ({ userSummary, userProfile, userPreference }) => { ... }
+});
+```
+
+> 🗣️ *"Three independent calls fire after login. Sequentially that's the **sum** of the latencies; `forkJoin` makes it the **slowest of the three**. Note it's the object form, so the result destructures by name rather than by array index — much harder to get wrong when someone later adds a fourth call."*
+
+⚠️ And the trap to volunteer: *"`forkJoin` emits nothing at all if **any** source errors, so for a dashboard where partial data is better than none, each call needs its own `catchError` returning a fallback."*
+
+**22 `forkJoin` usages** in the app.
+
+---
 
 ### 5. Parallel dashboard load with per-call fallback
 

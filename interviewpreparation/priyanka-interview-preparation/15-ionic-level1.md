@@ -328,6 +328,54 @@ export class StudyListPage {
 }
 ```
 
+#### The easiest way to remember it
+
+```
+Angular assumes a page is DESTROYED when you leave.
+Ionic KEEPS IT ALIVE in the navigation stack. ⭐
+
+→ so ngOnInit fires ONCE, ever
+→ and ionViewWillEnter fires EVERY TIME you come back ⭐
+```
+
+```
+   Page A ──push──▶ Page B
+     │                 │
+   still ALIVE       active
+   in the stack        │
+     ◀────back─────────┘
+     │
+  ngOnInit does NOT run again 💥
+  ionViewWillEnter DOES ✅ ⭐
+```
+
+Real-world idea: **browser tabs.** Switching away from a tab doesn't close it — it's still there with all its state. Coming back doesn't reload the page.
+
+⚠️ **The bug this causes, and the one to describe:**
+
+```
+User opens the Study List  → ngOnInit loads 5 items
+User edits an item on another page → saves
+User presses back
+      → ngOnInit does NOT run
+      → the list still shows the OLD data 💥
+Fix: load in ionViewWillEnter ⭐
+```
+
+#### Easy memory
+
+```
+Ionic CACHES pages in the navigation stack ⭐ (like browser tabs)
+
+ngOnInit         → ONCE ever          → build the form, one-time setup
+ionViewWillEnter → EVERY entry ⭐     → refresh the data
+ionViewWillLeave → every exit         → pause timers, unsubscribe
+ngOnDestroy      → only when the page really leaves the stack
+
+THE question: "why doesn't my list refresh after an edit?"
+→ because you loaded it in ngOnInit ⭐
+```
+
 ---
 
 ## Section F — Native Features / Capacitor Plugins
@@ -352,9 +400,49 @@ async takePhoto() {
 ```
 
 ### Q26. Which Capacitor plugins do you know?
-`@capacitor/camera`, `@capacitor/geolocation`, `@capacitor/preferences` (key-value storage), `@capacitor/filesystem`, `@capacitor/network`, `@capacitor/push-notifications`, `@capacitor/local-notifications`, `@capacitor/share`, `@capacitor/splash-screen`, `@capacitor/status-bar`, `@capacitor/app`, `@capacitor/haptics`, `@capacitor/device`, `@capacitor/browser`, `@capacitor/toast`.
 
-> 💡 **RoboGebra hook:** the Study Reminder module maps directly onto `@capacitor/local-notifications` for scheduled reminders and `@capacitor/preferences` for the user's reminder settings. Have that ready.
+⚠️ **Answer with the ones YOU actually ship, not a textbook list.** If you name `@capacitor/camera` and they ask what you used it for, you're stuck.
+
+#### 🔵 The 19 plugins actually in `robogebra-mobile/package.json` ⭐
+
+```
+@capacitor/app                      app state, deep links, hardware back button
+@capacitor/browser                  in-app browser
+@capacitor/device                   device info
+@capacitor/haptics                  tactile feedback
+@capacitor/keyboard                 keyboard events + resize behaviour
+@capacitor/network                  online/offline detection ⭐
+@capacitor/preferences              native key-value storage ⭐
+@capacitor/push-notifications       + @capacitor-firebase/messaging (FCM) ⭐
+@capacitor/screen-orientation
+@capacitor/splash-screen
+@capacitor/status-bar
+@capacitor-community/firebase-analytics
+@capawesome/capacitor-app-update    in-app update prompts ⭐
+capacitor-native-settings           deep-link into the OS settings screen
+capacitor-razorpay                  NATIVE payments ⭐
+```
+
+> 🗣️ **The story to tell:** *"About nineteen plugins in production. The two with real complexity were **push notifications** — Capacitor Firebase messaging on the client, Firebase Admin on the Spring Boot side, with a dedicated bounded thread pool for the fan-out — and **native Razorpay**, because a web checkout flow inside a WebView doesn't survive an app-store review. We also use `@capacitor/network` for offline detection, and `@capacitor/preferences` rather than `localStorage`, since the OS can evict WebView storage under pressure."*
+
+⭐ Two details in there that score:
+
+```
+1. Preferences over localStorage — because the OS can EVICT WebView storage ⭐
+2. @capawesome/capacitor-app-update — because users DON'T update apps,
+   unlike a web deploy where everyone gets the new version instantly ⭐
+```
+
+That second one shows you've thought about the *operational* difference between shipping web and shipping mobile, which is exactly what a lead is asked about.
+
+#### Easy memory
+
+```
+Name YOUR 19, not a textbook list ⭐
+The headline three: PUSH (Firebase) | RAZORPAY (native checkout) | NETWORK (offline)
+Preferences > localStorage (the OS can evict WebView storage) ⭐
+app-update plugin → because users don't update apps ⭐
+```
 
 ### Q27. How do you check whether the app is running on a device or in the browser?
 ```ts
@@ -388,6 +476,34 @@ await Preferences.set({ key: 'token', value: jwt });
 const { value } = await Preferences.get({ key: 'token' });
 await Preferences.remove({ key: 'token' });
 ```
+
+#### The easiest way to remember local storage
+
+```
+Preferences ⭐ → SMALL key-value, NATIVE storage → tokens, settings, flags
+Ionic Storage → larger key-value, IndexedDB/SQLite driver
+SQLite        → structured, relational, big offline datasets
+localStorage  → WEB ONLY ⚠️ — the OS can wipe WebView storage ⭐
+```
+
+```
+localStorage lives inside the WEBVIEW.
+Android/iOS may CLEAR WebView data when the device is low on space. 💥
+      ↓
+Your user is silently logged out and loses their settings.
+      ↓
+Preferences writes to NATIVE storage (SharedPreferences / UserDefaults) ✅ ⭐
+```
+
+⭐ **That is the single best Ionic storage answer** — it explains *why*, not just *what*.
+
+#### 🔵 In your RoboGebra code
+
+`@capacitor/preferences` is in the dependency list — and the auth interceptor reads the token asynchronously (via `getAuthDetailsObservable()` + `switchMap`) precisely *because* native storage is async, unlike `localStorage`.
+
+> 🗣️ *"Native `Preferences` is promise-based, not synchronous like `localStorage`. That's why our HTTP interceptor `switchMap`s over an auth-details observable to attach the token — the token isn't available synchronously when the request is created."*
+
+⭐ That connects **storage → RxJS → the interceptor**, and it's true of your actual code.
 
 ### Q29. How do you handle permissions?
 Plugins expose `checkPermissions()` and `requestPermissions()`. You also declare them natively: `AndroidManifest.xml` for Android, `Info.plist` usage descriptions for iOS (iOS **rejects the build** without a usage description string).
@@ -495,12 +611,24 @@ Yes — that's a headline Ionic feature. `ng add @angular/pwa` adds a service wo
 ## Section J — Resume-linked questions *(expect these)*
 
 ### Q40. "You mention Ionic on your resume — what exactly did you build with it?"
-> "On **RoboGebra**, an AI-driven math learning platform, the front end is **Ionic + Angular** and the backend is **Java/Spring Boot with MongoDB**. My main modules were:
+> "On **RoboGebra**, an AI-driven math learning platform, the mobile app is **Ionic 8.7 + Capacitor 6.2 on Angular 18**, and the backend is **Java 17 / Spring Boot 3.2 with MongoDB**. My main modules were:
 > - the **personalized learning dashboard** — progress analytics and learning timelines, built with `ion-card`/`ion-grid` and Chart rendering;
 > - the **Study Reminder system** — flexible scheduling with `ion-datetime`, notification delivery, and full REST CRUD APIs;
 > - the **Study List module** — create/organize/track goals, with `ion-item-sliding` for swipe actions and real-time sync;
 > - the **Quiz module** — dynamic questions, instant evaluation and solution walkthroughs in modals;
 > - plus the **bilingual (Tamil/English) AI explanation** views with step-by-step reasoning."
+
+#### 🔵 Numbers you can quote about the app ⭐
+
+```
+Angular 18.2 · Ionic 8.7.5 · Capacitor 6.2.1 · RxJS 7.8 · TypeScript 5.4
+163 components · 89 services · 27 route resolvers · 4 guards · 3 HTTP interceptors
+19 Capacitor plugins
+takeUntil 426 · switchMap 246 · BehaviorSubject 122 · async pipe 311 · trackBy 55
+```
+
+⭐ Quoting real numbers is disproportionately convincing — nobody invents "27 resolvers".
+Full inventory: **[39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
 
 ### Q41. "Since Ionic is just Angular, what did you actually have to learn?"
 > "Three things: the **Ionic page lifecycle** — `ionViewWillEnter` versus `ngOnInit`, because pages are cached; **styling through CSS variables** instead of normal CSS, because the components use Shadow DOM; and the **Capacitor build cycle** — build, `cap sync`, then run from Android Studio, plus handling code paths that only work on a real device."
@@ -531,7 +659,7 @@ Answer honestly. If you didn't own the release, say:
 | How to preview both platforms at once? | `ionic serve --lab` |
 | Component for a scrollable page body? | `ion-content` |
 | Hook that fires on every page entry? | `ionViewWillEnter` |
-| Storage plugin for key-value? | `@capacitor/preferences` |
+| Storage plugin for key-value? | `@capacitor/preferences` — **not** `localStorage`, the OS can evict WebView storage ⭐ |
 | How to style inside a shadow-DOM component? | CSS variables / `::part()` |
 | Force Material styling? | `mode: 'md'` |
 | Navigate with a forward animation? | `navCtrl.navigateForward()` |

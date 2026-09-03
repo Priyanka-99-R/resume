@@ -1615,7 +1615,7 @@ Even in a "basics not mandatory" round, these come up because they're one step f
 
 Structure it as: **what the product does → the architecture → what *you* own → one hard thing you solved.**
 
-> *"RoboGebra is an AI-driven math learning platform — students work through problems and get step-by-step explanations, in Tamil and English. The client is Angular and Ionic so it runs as a web app and on mobile; the backend is Java with Spring Boot and MySQL, split into services, with an AI explanation engine behind its own service. I own the learner-facing side end to end — the personalized dashboard, the study list and quiz modules, and the study reminder system, which means both the Angular components and the REST APIs behind them."*
+> *"RoboGebra is an AI-driven math learning platform — students work through problems and get step-by-step explanations, in Tamil and English. The client is Angular and Ionic so it runs as a web app and on mobile; the backend is Java 17 with Spring Boot 3 and MongoDB, split into services, with an AI explanation engine behind its own service. I own the learner-facing side end to end — the personalized dashboard, the study list and quiz modules, and the study reminder system, which means both the Angular components and the REST APIs behind them."*
 >
 > *"The hardest piece was the real-time computation and visualization — as the student edits an expression, the graph updates instantly while the AI explanation is fetched remotely. I split it: local computation renders immediately, and the remote call is debounced and `switchMap`ped so an in-flight request is cancelled when the input changes again. Without that we were flooding the AI backend with a request per keystroke."*
 
@@ -1806,7 +1806,7 @@ Have these answers ready and consistent — HR will cross-check them against wha
 | **Current & expected CTC** | Know your number before the call. Give a range with a reason ("based on my experience and the market for full-stack Angular/Java"). |
 | **Location / onsite days** | Know the client's location and be clear about what you can do. |
 | **Any other offers in progress?** | Honest but brief. It's leverage, not a threat. |
-| **Total experience** | 4+ years, since Oct 2021 at Provility. Consistent everywhere. |
+| **Total experience** | **5 years**, since Oct 2021 at Provility. Consistent everywhere. |
 | **Are you okay with a support/maintenance project?** | Say yes if you are — many client projects are. *"I'd want some feature work too, but I'm comfortable with production support."* |
 
 ---

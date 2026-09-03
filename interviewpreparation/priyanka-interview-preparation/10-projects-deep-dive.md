@@ -1,18 +1,93 @@
-# Projects — Deep-Dive Interview Q&A
+# Projects — Deep-Dive Interview Q&A (Easy Version)
 
-> Experience / "project difficulty" round. Interviewers cross-question on real decisions, trade-offs, and concrete technical detail. Speak in the first person, give numbers where you can, and always close a "how did you solve it" answer with the outcome.
+> Experience / "project difficulty" round. Interviewers cross-question on real decisions, trade-offs and concrete technical detail. Speak in the first person, give numbers where you can, and always close a "how did you solve it" answer with the **outcome**.
+>
+> ⚠️ **Corrected in this version:** RoboGebra's database is **MongoDB**, not MySQL (verified: 104 `@Document` classes, 27 `@Aggregation` pipelines). Two answers below still said MySQL — a follow-up like *"how did you model the joins?"* would have exposed it. 🔵 blocks now cite the **real files**.
+
+---
+
+## 🧠 The easiest way to answer ANY project question — CAPS
+
+```
+C — CONTEXT   what the product does, in ONE sentence
+A — ACTION    what I BUILT (name the modules) ⭐
+P — PROBLEM   one hard thing, and the trade-off I chose ⭐⭐
+S — SCALE     numbers, versions, real details ⭐
+```
+
+⭐ **The P is what actually gets you hired.** Anyone can list features. Only someone who built it can explain what was *hard* and why they chose one option over another.
+
+```
+WEAK   "I built the quiz module using Angular and Java."
+                ↑ this is a resume line read aloud 💥
+
+STRONG "I built the quiz module. The hard part was the live graph —
+        recomputing on every slider tick janked the UI and hammered
+        the AI endpoint, so I split it into two streams: local maths
+        redraws instantly, and the AI insight is debounced 400ms with
+        switchMap so a stale response can't overwrite a newer one." ⭐
+```
+
+### The rule ⭐
+
+```
+Every project answer needs ONE hard problem you can go three questions deep on.
+
+They will ask:  "why?" → "what else did you consider?" → "what broke?"
+If you only have the feature list, you run out at question one 💥
+```
+
+Real-world idea: **a cooking show.** Nobody wants the ingredients read out. They want the moment the sauce split and what you did about it.
+
+#### Easy memory
+
+```
+CAPS ⭐  Context (1 line) → Action (modules) → PROBLEM + trade-off ⭐⭐ → Scale (numbers)
+
+Have ONE hard problem per project, deep enough for THREE follow-ups ⭐
+Always finish with the OUTCOME.
+```
 
 ---
 
 ## 1) RoboGebra — AI-Driven Math Learning Platform
 
-**Project pitch:** RoboGebra is an AI-driven math learning platform that helps students learn step-by-step, with personalized dashboards and bilingual (Tamil/English) explanations. I work as a frontend-focused full-stack engineer building the Angular + Ionic client and the supporting Java/MySQL REST services. I own features like the personalized learning dashboard, the Study Reminder system, the Study List module, the AI math explanation engine integration, the interactive Quiz module, and real-time math computation with live graph visualization. My work directly improved learner retention through scheduled reminders and made complex problems easier to grasp via instant, interactive feedback.
+**Project pitch:** RoboGebra is an AI-driven math learning platform that helps students learn step-by-step, with personalized dashboards and bilingual (Tamil/English) explanations. I work as a frontend-focused full-stack engineer building the Angular + Ionic client and the supporting Java/**MongoDB** REST services. I own features like the personalized learning dashboard, the Study Reminder system, the Study List module, the AI math explanation engine integration, the interactive Quiz module, and real-time math computation with live graph visualization. My work directly improved learner retention through scheduled reminders and made complex problems easier to grasp via instant, interactive feedback.
 
 ### Q: What was your exact role and the team size?
-I was the primary frontend engineer (Angular/Ionic) and also wrote backend REST endpoints in Java with MySQL for my modules. The team was around 6–7: a couple of frontend devs, two backend devs, a designer, a QA, and a lead/PM. I owned the dashboard, reminders, study list, quiz, and the real-time computation features end to end — UI, the API contract, and the persistence layer for those.
+I was the primary frontend engineer (Angular/Ionic) and also wrote backend REST endpoints in **Java 17 / Spring Boot 3.2 with MongoDB** for my modules. The team was around 6–7: a couple of frontend devs, two backend devs, a designer, a QA, and a lead/PM. I owned the dashboard, reminders, study list, quiz, and the real-time computation features end to end — UI, the API contract, and the persistence layer for those.
 
 ### Q: Describe the overall architecture.
-It's a hybrid mobile/web app: Angular as the framework with Ionic for the mobile/cross-platform UI layer, talking over REST to Java services backed by MySQL. The AI explanation/quiz generation lives behind a service that the Java layer proxies, so the client never calls the model directly — that keeps keys server-side and lets us cache/normalize responses. On the frontend I used a service-per-domain pattern (DashboardService, ReminderService, StudyListService, QuizService), RxJS for async streams, and a shared state layer for cross-component data like the current learner profile.
+It's a hybrid mobile/web app: Angular as the framework with Ionic for the mobile/cross-platform UI layer, talking over REST to **Java 17 / Spring Boot 3.2 services backed by MongoDB** (Spring Data MongoDB, not JPA). The AI explanation/quiz generation lives behind a service that the Java layer proxies, so the client never calls the model directly — that keeps keys server-side and lets us cache/normalize responses. On the frontend I used a service-per-domain pattern (DashboardService, ReminderService, StudyListService, QuizService), RxJS for async streams, and a shared state layer for cross-component data like the current learner profile.
+
+### 🔵 The architecture, with the real numbers ⭐
+
+```
+[ Angular 16.2 web ]  [ Ionic 8.7 / Angular 18.2 mobile ]  [ Admin portal ]  [ React CRM ]
+         │                        │                              │                │
+         └────────────────────────┴──────────┬───────────────────┴────────────────┘
+                                             ▼  REST + JWT
+                        [ Spring Boot 3.2 · Java 17 ]
+                          110 @RestController · 207 @Service
+                          85 @Repository · 104 @Document ⭐
+                                             │
+     ┌───────────────┬───────────────────────┼──────────────────┬─────────────────┐
+     ▼               ▼                       ▼                  ▼                 ▼
+[ MongoDB ]   [ AWS S3 ] ⭐          [ AWS Cognito ] ⭐   [ Firebase FCM ]   [ Razorpay ]
+ documents     assets +               auth, 3 pools       push               payments
+ 27 pipelines  PRESIGNED URLs         + JWKS validation   (bounded pool ⭐)
+
+Local dev: LocalStack (S3 + Cognito in Docker) ⭐   CI/CD: Jenkins + Docker ⭐
+Scheduled work: Quartz
+```
+
+> 🗣️ **Say it like this:** *"Four clients — the Angular web app, the Ionic mobile app, an admin portal and a React CRM — all talk to one Spring Boot API over REST with JWT. Persistence is MongoDB through Spring Data. The AI engine sits behind our own service, so the client never holds a key and we can cache and normalise the responses. S3 holds assets and serves them via presigned URLs; Cognito is the identity provider; Firebase does push; Razorpay does payments."*
+
+⚠️ And be precise if they probe the architecture style:
+
+> *"It's a **modular monolith**, not microservices — one Spring Boot deployment organised into domain packages that each own their services and repositories. The boundaries are drawn, but we haven't paid the operational cost of splitting it."*
+
+→ [08 — Microservices](./08-microservices-basics.md) · [39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)
 
 ### Q: The real-time computation and graph visualization sounds expensive. How did you keep it performant?
 The problem: when a student drags a slider or edits a value, we recompute the expression and redraw the graph plus fetch AI insights. Naively that fires a request and a re-render on every keystroke/drag tick, which janks the UI and hammers the AI endpoint. I split it into two streams — local math computation (instant, runs in the browser) and the AI insight call (debounced).
@@ -57,6 +132,30 @@ The Study List lets learners create/organize/track goals and needs to reflect ch
 ### Q: How do you manage state across these modules?
 For most feature state I use RxJS services with `BehaviorSubject`s (a lightweight store pattern) rather than pulling in NgRx — the app's state is feature-scoped, so a store-per-domain keeps it simple and testable. Shared/global concerns (current learner, language, auth) live in singleton root-provided services. Components subscribe via the `async` pipe so subscriptions are cleaned up automatically.
 
+### 🔵 The real state-management answer ⭐
+
+**File:** `robogebra-mobile/src/app/core/services/user-summary.service.ts` — **122 `BehaviorSubject` usages**, **zero NgRx**.
+
+```ts
+@Injectable({ providedIn: 'root' })                        // ⭐ app-wide singleton
+export class UserSummaryService {
+    private userSummarySubject$ = new BehaviorSubject<UserSummaryGroupDTO>(null);
+
+    getUserSummarySubject(): Observable<UserSummaryGroupDTO> {
+        return this.userSummarySubject$.asObservable();     // ⭐ READ-ONLY outside
+    }
+    getUserSummary(): UserSummaryGroupDTO {
+        return this.userSummarySubject$.getValue();         // ⭐ SYNCHRONOUS read
+    }
+}
+```
+
+> 🗣️ *"State is `BehaviorSubject`-backed services rather than NgRx — that was a deliberate choice. `BehaviorSubject` gave us the two things we actually needed: a current value on subscribe, so a lazily-created page or modal still gets the logged-in user, and a synchronous `getValue()` for callers that can't subscribe — our institute-code HTTP interceptor, for instance. NgRx would have meant actions, reducers, effects and selectors for state that a handful of components read. I'd reach for it when state is shared across many unrelated features and I need time-travel debugging."*
+
+⭐ Note the subject is **private** and only `asObservable()` is exposed — so no component can call `.next()` and mutate global state from anywhere. Say that; it's an encapsulation point most people miss.
+
+→ [21 — NgRx](./21-ngrx.md)
+
 ### Q: How do you handle API errors and loading states?
 Every API call goes through typed service methods that return Observables; components render explicit loading/empty/error states rather than blank screens. I use a `catchError` to map server errors into a user-facing message and, where safe, fall back (e.g., the AI insight failing should not break the graph — see the snippet above). An HTTP interceptor centralizes auth headers, 401 handling, and a global error toast so I don't repeat that logic per call.
 
@@ -65,6 +164,57 @@ Unit tests for the services (Jasmine/Karma) with `HttpTestingController` to asse
 
 ### Q: What would you do differently?
 I'd introduce a proper state library (NgRx Component Store or Signals-based store) earlier — once several modules needed to share the learner/profile state, the hand-rolled subjects got repetitive. I'd also add response caching for AI explanations at the service layer from day one, since identical problems get explained repeatedly and that's wasted model cost and latency.
+
+### 🔵 Your three strongest "hard problem" stories ⭐
+
+These are verified in your code. **Pick one and be ready to go three questions deep.**
+
+#### 1. The N+1 query — and the fix ⭐⭐
+
+**File:** `domain/exerciseitem/repository/ExerciseItemRepository.java` (27 `@Aggregation` pipelines)
+
+```java
+@Aggregation(pipeline = {
+        "{ '$match': { 'exercise.$id': { '$in': ?0 } } }",     // ⭐ ?0 = the method parameter
+        "{ '$sort':  { 'displayOrder': 1 } }"
+})
+List<ExerciseItemEntity> findAllByExerciseIds(List<ObjectId> exerciseIds);
+```
+
+> *"Loading a chapter's exercises and then fetching each exercise's items one at a time is one query plus N — and `@DBRef` makes it very easy to fall into, because Spring Data resolves each reference with its own query. A chapter with fifty exercises meant fifty-one round trips. I replaced it with a single aggregation pipeline that matches on all the exercise ids at once with `$in` and sorts by display order. It's the same fix as a JPA `JOIN FETCH`, expressed as a pipeline. What I took from it is that a document database doesn't remove the N+1 problem — it just changes what it looks like."*
+
+#### 2. The push-notification thread pool ⭐⭐
+
+**File:** `config/AsyncConfig.java`
+
+```java
+@Bean(NOTIFICATION_TASK_EXECUTOR)
+public ThreadPoolTaskExecutor notificationTaskExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(4);
+    executor.setMaxPoolSize(8);
+    executor.setQueueCapacity(500);                     // BOUNDED ⭐
+    executor.setThreadNamePrefix("push-");              // readable thread dumps ⭐
+    executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());  // backpressure ⭐
+    executor.setWaitForTasksToCompleteOnShutdown(true);
+    executor.setAwaitTerminationSeconds(30);
+    return executor;
+}
+```
+
+> *"We had one shared `@Async` pool, and push fan-out was starving it — a single announcement touches every teacher, and each device is a blocking FCM round trip, so analytics events queued behind it. I gave push its own executor with a bounded 500-item queue and a caller-runs rejection policy, so a backlog slows the submitter down instead of growing an unbounded queue until the heap gives out. A late push beats an OutOfMemoryError. The subtle part was that declaring any executor bean makes Spring Boot's auto-configured `applicationTaskExecutor` back off — it's `@ConditionalOnMissingBean(Executor.class)` — so every unqualified `@Async` silently moved onto the notification pool. I had to rebuild Boot's default from its own builder."*
+
+⭐ That last sentence is genuinely senior. It demonstrates the auto-configuration answer *and* a real production trap in one story.
+
+#### 3. The HTTP interceptor ⭐
+
+**File:** `core/interceptors/header-authorization.interceptor.ts`
+
+> *"One interceptor handles the token, the 401 refresh cycle and cancellation. Three details in it are worth calling out. `HttpRequest` is immutable, so you must `clone()` — mutating it silently does nothing. We skip the `/auth` endpoints, or login would need a token to get a token. And we deliberately don't set `Content-Type` when the body is `FormData`, because the browser has to generate the multipart boundary itself — setting it manually breaks every file upload. There's also a `cancelRequests$` subject, so logout aborts every in-flight request at once; otherwise a slow response from the previous session can land after the user has signed out."*
+
+⭐ **The FormData detail is the one that makes interviewers sit up** — it's a real bug most people have shipped without ever diagnosing.
+
+→ [39 — RoboGebra Code Examples](./39-robogebra-code-examples.md) for all three in full.
 
 ### Q: How did you collaborate?
 Agile with two-week sprints, Jira for stories/bugs, Git with feature branches and PR reviews. I'd pick up a story, agree the API contract with the backend dev, build behind a feature branch, get a review, and demo in sprint review.
@@ -280,3 +430,60 @@ On Subsea we used Docker for reproducible builds and deployed containers to Azur
 
 ### Q: Tell me about a disagreement on a technical approach.
 On grid performance in Subsea there was a question of client-side vs server-side data operations. I argued for server-side paging/sorting/filtering because client-side wouldn't scale with the dataset. Rather than just assert it, I demonstrated the lag with a realistic data volume, we agreed on the server-side approach, and the grid stayed responsive. I focus on evidence and the user impact, and I commit to the decision once it's made even if it isn't the one I proposed.
+
+---
+
+## Quick Revision Sheet — the four projects, one page
+
+```
+CAPS ⭐  Context → Action (modules) → PROBLEM + trade-off ⭐⭐ → Scale (numbers)
+Every project needs ONE hard problem, deep enough for THREE follow-ups ⭐
+
+────────────────────────────────────────────────────────────────────────────
+1. ROBOGEBRA ⭐ FLAGSHIP          Oct 2024 – now
+   Angular 16 web · Ionic 8.7 / Angular 18.2 mobile · Java 17 / Spring Boot 3.2
+   MONGODB ⭐ (NOT MySQL!) · AWS S3 + Cognito · Firebase · Razorpay · Quartz
+   BUILT: dashboard · Study List · quiz · AI Tamil/English explanations
+          + THE IONIC MOBILE APP (iOS/Android) ⭐ ← lead with this
+   HARD PROBLEM (pick one):
+      • N+1 → one $match/$in aggregation instead of 51 queries ⭐⭐
+      • push thread pool → bounded queue + CallerRunsPolicy ⭐⭐
+        (+ the @ConditionalOnMissingBean auto-config trap ⭐)
+      • interceptor → clone() · FormData Content-Type ⭐ · cancelRequests$
+   STATE: BehaviorSubject services, NOT NgRx — a deliberate choice ⭐
+   STYLE: MODULAR MONOLITH, not microservices ⭐
+
+────────────────────────────────────────────────────────────────────────────
+2. SUBSEA                          Apr 2024 – Sep 2024
+   Angular · .NET · Docker · Azure · Kendo UI Grid
+   BUILT: Schedule-Manager module + the .NET APIs · category/sub-category mgmt
+   HARD PROBLEM: large Kendo grid performance → virtualisation + server paging
+   STORY: learning .NET quickly, coming from Java ⭐
+
+────────────────────────────────────────────────────────────────────────────
+3. BACKOFFICE MIGRATION ⭐          Feb 2024 – Mar 2024
+   FOUR repos → Angular 16 (Ticketing v2→16, three SSG plugins v9/v4→16)
+   HARD PROBLEM: RxJS 6→7 breaking changes · incompatible third-party libs
+   STORY: this is your LEADERSHIP / OWNERSHIP answer ⭐
+   LINE: "the hard part is never Angular — it's the third-party libraries" ⭐
+
+────────────────────────────────────────────────────────────────────────────
+4. EASYVISA                        Nov 2021 – Jan 2024
+   Angular · Grails/Groovy · Postgres · Neo4j · Angular FORMLY ⭐
+   BUILT: document portal (accordion uploads) · nested reactive forms
+          · custom Formly field types · customised image cropper · unit tests
+   HARD PROBLEM: dynamic nested Formly forms + large file uploads
+   STORY: "above and beyond" — reusable components the whole team adopted ⭐
+   LINE: "a new form field became a CONFIG change, not a release" ⭐
+   ⚠️ NgRx and Formly are EASYVISA, not RoboGebra ⭐
+
+────────────────────────────────────────────────────────────────────────────
+THE THREE THINGS TO NEVER GET WRONG ⭐
+  1. RoboGebra = MONGODB (not MySQL) ⭐
+  2. RoboGebra = modular MONOLITH (no Eureka/Feign/circuit breaker) ⭐
+  3. NgRx + Formly = EasyVisa · signals + standalone = NOT adopted yet ⭐
+```
+
+---
+
+**Related files:** [00 — Self-Introduction](./00-self-introduction.md) · [11 — HR & Behavioural](./11-hr-behavioral.md) · [39 — RoboGebra Code Examples](./39-robogebra-code-examples.md) · [18 — RoboGebra Technical Versions](./18-robogebra-technical-versions.md)

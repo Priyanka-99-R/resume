@@ -1,29 +1,96 @@
-# HR & Behavioral Interview — Questions & Sample Answers
+# HR & Behavioral Interview — Questions & Sample Answers (Easy Version)
 
-These are the most common HR and managerial-round questions for an experienced (lateral) candidate, with sample answers written in first person and tailored to Priyanka's background. Use the STAR method (Situation, Task, Action, Result) where the question is about a real scenario. Adapt the wording so it sounds like you — don't recite robotically.
+> ## ⚠️ **BEFORE YOU USE THIS FILE**
+>
+> ```
+> Every "[COMPANY]" is a BLANK you fill in ⭐
+> Q2 ("why this company") and Q22 ("what do you know about them")
+>    MUST be rewritten for each interview — a generic answer there
+>    is worse than a short one 💥
+> ```
+>
+> **Fixed in this version:** "over four years" → **5 years** · RoboGebra's database → **MongoDB** · every hardcoded "Wipro" → **`[COMPANY]`**.
+
+---
+
+## 🧠 The easiest way to answer ANY behavioural question — STAR
+
+```
+S — SITUATION  what was happening?        (1 sentence — set the scene)
+T — TASK       what was MY job in it?     (1 sentence — your responsibility)
+A — ACTION     what did I DO?             (2–3 sentences — the BIGGEST part ⭐)
+R — RESULT     what happened because?     (1 sentence — the outcome)
+```
+
+```
+   S ▁▁        T ▁▁        A ▁▁▁▁▁▁▁▁        R ▁▁
+   10%         10%            60% ⭐          20%
+
+⭐ Most people spend all their time on S and run out of time on A.
+   The ACTION is the only part that tells them about YOU. ⭐
+```
+
+Real-world idea: **a news report.** *What happened* (situation), *whose job it was* (task), *what was actually done* (action — the real story), *what came of it* (result). A report that is all background and no events is useless.
+
+#### The three rules
+
+```
+1. Say "I", not "we" ⭐
+      "We migrated four repos" tells them NOTHING about you.
+      "I planned it repo by repo and tested each one" tells them everything ⭐
+
+2. ALWAYS finish with the RESULT ⭐
+      An answer with no result sounds like an unfinished story.
+
+3. 30–90 SECONDS. Past 90 and you're narrating, not answering ⭐
+```
+
+#### Easy memory
+
+```
+S ▁ T ▁ A ▁▁▁▁ R ▁  ⭐ — the ACTION is 60% of it
+Say "I", not "we" ⭐ | always land the RESULT ⭐ | 30–90 seconds ⭐
+```
 
 ---
 
 ## 1. Tell me about yourself.
 
 **Sample answer:**
-"I'm a Full Stack Developer with over four years of experience, currently a Software Engineer at Provility Software Solutions in Chennai. I specialize in Angular on the front end and Java with Spring Boot on the back end. My most recent project is RoboGebra, an AI-driven math learning platform where I built the learning dashboard, a quiz module, and a study reminder system using REST APIs. I've also worked across .NET, microservices, and cloud on AWS and Azure. I'm now looking for a role with more scale and variety, which is what draws me to Wipro."
+"I'm a Full Stack Developer with **5 years of experience**, currently a Software Engineer at Provility Software Solutions in Chennai. I specialize in Angular on the front end and Java with Spring Boot on the back end. My current project is RoboGebra, an AI-driven math learning platform on Angular, Ionic, Java and **MongoDB**, where I built the learning dashboard, the Study List module and the quiz module — and built our Ionic mobile app for iOS and Android from the existing Angular codebase. I've also worked across .NET, microservices, and cloud on AWS and Azure. I'm now looking for a role with more scale and variety, which is what draws me to **[COMPANY]**."
 
 *(See the dedicated 00-self-introduction.md for the full 60-second and 2-minute scripts.)*
 
 ---
 
-## 2. Why do you want to join Wipro?
+## 2. Why do you want to join **[COMPANY]**? ⚠️ REWRITE THIS EVERY TIME
 
-**Sample answer:**
-"Wipro is a global organization with a huge range of clients and domains, and that's exactly the kind of scale I want next. So far I've worked on focused products in a smaller setup, where I've gained strong end-to-end ownership. At Wipro I'd get exposure to enterprise-grade projects, structured engineering practices, and the chance to grow into more senior technical and architectural responsibilities. The breadth of technology Wipro works with — across cloud, full stack, and modern frameworks — maps very well to my Angular, Java and Spring Boot background, so I see it as a place where I can contribute from day one and also keep learning."
+⚠️ **This is the one question you cannot answer generically.** A vague answer here undoes a good technical round.
+
+### The formula ⭐
+
+```
+1. ONE SPECIFIC thing about THEM   (product, domain, scale, the stack in the JD)
+2. What I bring that MATCHES it
+3. What I'd LEARN there            (shows a two-way fit, not desperation)
+```
+
+**Fill-in-the-blank template:**
+
+> "Two things. First, **[ONE SPECIFIC THING — their product, their domain, the scale, or something in the JD]** — that's the kind of work I want to be doing next. Second, the stack lines up closely with mine: Angular and Ionic on the front end, Java and Spring Boot on the back end, which is exactly what I've been building for five years, so I could contribute early rather than spending months ramping up. And what I'd get from it is **[scale / the domain / a bigger engineering team / more structured architecture practice]**, which is the part I don't get in a smaller product team."
+
+### Worked example — IQVIA (your next interview) ⭐
+
+> "Two things. First, the domain — healthcare and clinical data is a space where the software genuinely matters, and the constraints around data quality and compliance are the kind of engineering problem I find interesting. Second, the role is an Angular and Ionic technical lead position, and that's precisely what I've been doing — I built our Ionic mobile app for iOS and Android on top of an existing Angular codebase, with around nineteen native plugins. What I'd get from it is the scale and the lead-level responsibility: I've led an Angular 16 migration across four repositories, and I want to keep moving in that direction with a bigger team around me."
+
+⭐ Notice it names a **real specific thing**, a **real match**, and is honest about what she wants out of it.
 
 ---
 
 ## 3. Why are you looking for a change?
 
 **Sample answer:**
-"I've had a great four years at Provility and I've grown a lot — from building reusable components on EasyVisa to leading an Angular migration and now working on AI-driven features in RoboGebra. At this stage I'm looking for a larger platform with bigger, more complex projects and clearer growth into senior roles. It's a move toward more scale and learning, not away from any problem. I want to keep building, just at a larger scale and with broader exposure."
+"I've had a great five years at Provility and I've grown a lot — from building reusable components on EasyVisa to leading an Angular migration and now working on AI-driven features in RoboGebra. At this stage I'm looking for a larger platform with bigger, more complex projects and clearer growth into senior roles. It's a move toward more scale and learning, not away from any problem. I want to keep building, just at a larger scale and with broader exposure."
 
 ---
 
@@ -79,14 +146,14 @@ These are the most common HR and managerial-round questions for an experienced (
 ## 11. Where do you see yourself in 5 years?
 
 **Sample answer:**
-"In five years I'd like to be a senior full-stack engineer or a technical lead — someone who not only delivers complex features but also makes architecture decisions and mentors junior developers. I've already had a taste of leadership through the Angular 16 migration I led, and I enjoyed owning that. At a company like Wipro, with its scale and structured growth paths, I see a clear runway to deepen my technical expertise while taking on more ownership and eventually guiding a team."
+"In five years I'd like to be a senior full-stack engineer or a technical lead — someone who not only delivers complex features but also makes architecture decisions and mentors junior developers. I've already had a taste of leadership through the Angular 16 migration I led, and I enjoyed owning that. At a company like **[COMPANY]**, with its scale and structured growth paths, I see a clear runway to deepen my technical expertise while taking on more ownership and eventually guiding a team."
 
 ---
 
 ## 12. What are your salary expectations?
 
 **Sample answer:**
-"I'm looking for a package that reflects my four-plus years of full-stack experience and is aligned with industry standards for this role and location. I'm open and flexible, and I trust Wipro to make a fair offer based on my skills and the value I bring. If you can share the band for this position, I'm happy to discuss where I'd fit within it. Overall, the right role and growth opportunity matter as much to me as the number."
+"I'm looking for a package that reflects my **5 years** of full-stack experience and is aligned with industry standards for this role and location. I'm open and flexible, and I trust **[COMPANY]** to make a fair offer based on my skills and the value I bring. If you can share the band for this position, I'm happy to discuss where I'd fit within it. Overall, the right role and growth opportunity matter as much to me as the number."
 
 ---
 
@@ -125,7 +192,7 @@ These are the most common HR and managerial-round questions for an experienced (
 ## 17. Why should we hire you?
 
 **Sample answer:**
-"Because I bring four-plus years of genuine full-stack delivery — Angular and Ionic on the front end, Java, Spring Boot and .NET on the back end — and a track record of owning features end to end across multiple domains: legal tech, marine operations, and AI-driven education. I ramp up quickly on new stacks, I write reusable and tested code, and I've already led work like an Angular migration. I'm low-maintenance, delivery-focused, and I communicate proactively. For a lateral role you need someone who can contribute from week one while still growing into more responsibility — that's exactly what I offer."
+"Because I bring **5 years** of genuine full-stack delivery — Angular and Ionic on the front end, Java, Spring Boot and .NET on the back end — and a track record of owning features end to end across multiple domains: legal tech, marine operations, and AI-driven education. I ramp up quickly on new stacks, I write reusable and tested code, and I've already led work like an Angular migration. I'm low-maintenance, delivery-focused, and I communicate proactively. For a lateral role you need someone who can contribute from week one while still growing into more responsibility — that's exactly what I offer."
 
 ---
 
@@ -157,12 +224,29 @@ These are the most common HR and managerial-round questions for an experienced (
 
 ---
 
-## 22. What do you know about Wipro?
+## 22. What do you know about **[COMPANY]**? ⚠️ RESEARCH THIS BEFOREHAND
 
-**Sample answer:**
-"Wipro is one of India's largest IT services and consulting companies, with a global presence and clients across many industries — banking, healthcare, retail, energy and more. It's well known for digital transformation, cloud, and engineering services, and for investing in employee learning and career growth. What appeals to me is the combination of scale, diversity of projects, and the structured environment to grow as an engineer. With my full-stack background in Angular, Java and cloud, I see a strong fit with the kind of work Wipro delivers."
+⚠️ **Fifteen minutes of research before the call is the highest-value preparation you can do.** This question separates candidates who want *this* job from candidates who want *a* job.
 
-*Tip: glance at Wipro's latest focus areas and any role-specific service line before the interview so this feels current.*
+### What to look up — 15 minutes ⭐
+
+```
+1. What do they actually SELL? (the product, or the service line)
+2. WHO are their customers / what industry? ⭐
+3. Any recent NEWS — a launch, an acquisition, a funding round
+4. The JD's stack — and which part matches you ⭐
+5. Something from their engineering blog or careers page
+```
+
+### The structure
+
+> "**[What they do, in one sentence.]** What stands out to me is **[one specific thing]**, and from the JD it looks like this role is about **[the actual work]**. That matches where I want to go — I've been building **[your matching experience]**, and I'd want to keep going deeper in that direction."
+
+### Worked example — IQVIA ⭐
+
+> "IQVIA works in healthcare data and clinical research technology — the products sit between clinical trials, real-world evidence, and the analytics built on top of that data. What stands out to me is that it's a domain where correctness genuinely matters; a bug in a marketing dashboard is one thing, a bug in clinical data is another. From the JD, this role is an Angular and Ionic technical lead position, which maps directly onto what I've been doing — I built our Ionic mobile app on top of an existing Angular codebase, and I've led an Angular 16 migration across four repositories. So the technology is familiar and the domain would be new, which is exactly the combination I want."
+
+⭐ **"The technology is familiar and the domain would be new"** is a strong line — it says you can contribute *and* still be learning.
 
 ---
 
@@ -186,11 +270,72 @@ These are the most common HR and managerial-round questions for an experienced (
 "Yes, a few:
 - What does the team I'd join look like, and what stack and projects would I be working on?
 - How is success measured for this role in the first six months to a year?
-- What do the growth and learning paths look like at Wipro for someone at my level?
+- What do the growth and learning paths look like at **[COMPANY]** for someone at my level?
 - How does the team handle code reviews, testing, and engineering best practices?
 - What are the biggest technical challenges the team is currently working on?"
 
 *Tip: pick the 2-3 most relevant to the conversation. Asking thoughtful questions signals genuine interest and seniority.*
+
+### ⭐ The three questions that make you sound senior
+
+```
+1. "What does success look like in the first six months?" ⭐
+      → you're thinking about DELIVERING, not about getting hired
+
+2. "What's the biggest technical challenge the team has right now?" ⭐
+      → you're interested in the WORK — and the answer is genuinely useful to you
+
+3. "How does the team handle code review and testing?" ⭐
+      → you care about HOW they build, not just what they build
+```
+
+```
+⚠️ NEVER ask about salary, leave or working hours in a TECHNICAL round —
+   those belong in the HR / offer conversation ⭐
+⚠️ NEVER say "no, I don't have any questions" — it reads as no interest 💥
+```
+
+---
+
+## Quick Revision Sheet — read this before the HR round
+
+```
+STAR ⭐   S ▁ T ▁ A ▁▁▁▁ R ▁ — the ACTION is 60%
+          Say "I", not "we" ⭐ | always land the RESULT ⭐ | 30–90 seconds
+
+YOUR FACTS
+  5 years ⭐ · Provility Software Solutions, Chennai, Oct 2021 – now
+  RoboGebra (Angular · Ionic · Java · MONGODB ⭐) → dashboard, Study List,
+     quiz, AI Tamil/English explanations, and the IONIC MOBILE APP ⭐
+  Subsea (Angular/.NET, Schedule-Manager) · Angular 16 migration, 4 repos ⭐
+  EasyVisa (document portal, Angular Formly, nested reactive forms)
+  B.Tech IT — Anna University, IRTT Erode, 2020, 77.1%
+
+THE STORIES — one each, ready to tell ⭐
+  LEADERSHIP / OWNERSHIP  → the Angular 16 migration (4 repos, planned repo by repo)
+  ACHIEVEMENT             → RoboGebra bilingual AI explanations + the mobile app
+  FAILURE                 → the untested Formly edge case → tests are part of "done"
+  CONFLICT                → the API-contract disagreement → talked through the UI flow
+  LEARNING FAST           → .NET on Subsea, coming from Java
+  ABOVE AND BEYOND        → built reusable Formly components the whole team adopted
+  PRESSURE                → Subsea: blocking bugs first, then the module, daily updates
+
+⚠️ REWRITE PER COMPANY ⭐
+  Q2  "Why [COMPANY]?"          → one SPECIFIC thing + the match + what you'd learn
+  Q22 "What do you know?"       → 15 minutes of research: product, customers, news, stack
+  Closing line                  → "…which is why I'm interested in [COMPANY]"
+
+TONE
+  ✅ Never criticise Provility — frame the move as GROWTH, not escape ⭐
+  ✅ Real project NAMES make you credible
+  ✅ Pause before hard questions — composure reads as seniority ⭐
+  ✅ Be consistent on notice period, relocation and salary — consistency = trust
+```
+
+---
+
+**Related files:** [00 — Self-Introduction](./00-self-introduction.md) · [10 — Projects Deep Dive](./10-projects-deep-dive.md) · [39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)
+
 
 ---
 

@@ -583,6 +583,85 @@ It's the oldest in the workspace. Fine answer: *"The backoffice lags the other a
 
 ---
 
+---
+
+## ✅ Re-audit — 3 September 2026
+
+> This file was first audited on **31 July 2026**. I re-read the repos on **3 Sept 2026**. **Every version number below was confirmed unchanged.** The counts have grown slightly (the codebase is active) and there are new figures worth quoting.
+
+### Confirmed unchanged ✅
+
+```
+Java 17 · Spring Boot 3.2.0 · MongoDB (no JPA) ✅
+Angular 16.2 (web + backoffice) · Angular 18.2 (mobile) ✅
+Ionic 8.7.5 · Capacitor 6.2.1 · RxJS 7.8 ✅
+TypeScript 5.4 (mobile) / 5.1 (web) / 4.9 (backoffice) ✅
+```
+
+### Updated counts (3 Sept 2026) ⭐
+
+| Metric | 31 Jul | **3 Sept** |
+|---|---|---|
+| `@RestController` | 101 | **110** |
+| `@Service` | 199 | **207** |
+| `@Repository` | 84 | **85** |
+| `@Transactional` | 125 | **130** |
+| `@Async` | 8 | **12** |
+| `@Document` (MongoDB) | — | **104** ⭐ |
+| `@Aggregation` pipelines | — | **27** ⭐ |
+| `@Valid` | — | **92** |
+| Java `record` | — | **26** |
+
+### New figures worth quoting — the frontend ⭐
+
+```
+robogebra-mobile (Angular 18.2 / Ionic 8.7.5):
+   163 components · 89 services · 27 route resolvers · 4 guards · 3 interceptors
+   19 Capacitor plugins ⭐
+
+   RxJS usage:  map 496 · filter 485 · takeUntil 426 ⭐ · catchError 338
+                finalize 254 · switchMap 246 · BehaviorSubject 122 ⭐
+                forkJoin 22 · combineLatest 21 · debounceTime 13
+
+   Angular:     async pipe 311 · @Input 252 · ngOnDestroy 100
+                trackBy 55 ⭐ · inject() 30 · OnPush 6
+                takeUntilDestroyed 5 · standalone 2 ⚠️ · signals 0 ⚠️
+```
+
+⭐ **Quote a count, not an adjective.** "Over four hundred `takeUntil` calls" is unforgeable; "we handle subscriptions carefully" is what everyone says.
+
+### The seven "do NOT claim" items — confirmed by count ⭐
+
+```
+signals              → 0  ⚠️  "studied, not shipped"
+standalone components→ 2  ⚠️  "new code is standalone-first"
+NgRx                 → 0  ⚠️  that's EasyVisa
+Angular Formly       → 0  ⚠️  that's EasyVisa
+JPA / Hibernate      → 0  ⚠️  it's Spring Data MongoDB (an ODM)
+MySQL / Postgres     → 0  ⚠️  MongoDB only
+Eureka/Feign/circuit breaker/Kafka → 0 ⚠️  modular MONOLITH
+```
+
+⚠️ **The `spring-data-jpa` line in the portal's `pom.xml` is unused** — no JPA starter, no `DataSource`, no `@Entity`. It is the single most dangerous trap in your own stack. Confirmed still present on 3 Sept.
+
+### New findings not in the original audit ⭐
+
+```
+AWS       S3 (PutObjectRequest + GeneratePresignedUrlRequest ⭐)
+          Cognito with THREE user pools ⭐ + JWKS validation (jwks-rsa)
+DEV       LocalStack in Docker — S3 + Cognito emulated locally ⭐
+CI/CD     Jenkinsfile-CI + Jenkinsfile-CD ⭐
+CONFIG    AsyncConfig.java — a dedicated bounded push pool with
+          CallerRunsPolicy, and Boot's applicationTaskExecutor
+          redeclared by hand (@ConditionalOnMissingBean back-off) ⭐⭐
+SECURITY  FilterChainExceptionHandler — because @ControllerAdvice
+          does NOT catch exceptions thrown in a security filter ⭐
+INDEXES   @CompoundIndex on the hot query paths, e.g.
+          {'user.$id': 1, 'exercise.$id': 1} on quiz attempts ⭐
+```
+
+→ All of these are written up as answers in **[39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
+
 ## ✅ Pre-interview checklist for this file
 
 - [ ] Can say **Angular 16.2 / Ionic 8.7.5 / Capacitor 6.2.1 / Angular 18.2 / Spring Boot 3.2.0 / Java 17 / MongoDB** without pausing

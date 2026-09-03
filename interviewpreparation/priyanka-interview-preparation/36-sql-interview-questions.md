@@ -38,6 +38,76 @@
 
 ---
 
+## 🧠 The easiest way to remember ALL of SQL
+
+Almost every SQL trap in this file comes from **one of three ideas**. Learn these three and you can *derive* the answers instead of memorising them.
+
+### 1️⃣ SQL runs in a DIFFERENT ORDER from how you write it ⭐
+
+```
+You WRITE:    SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY
+SQL RUNS:     FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT
+                                                    ↑
+                                          aliases are BORN here ⭐
+```
+
+Real-world idea: **cooking, not reading the menu.** The menu lists the dish name first; the kitchen starts with the ingredients.
+
+```
+That ONE picture explains:
+   why WHERE can't use COUNT(*)      → WHERE runs BEFORE grouping ⭐
+   why WHERE can't use an alias      → aliases don't exist yet ⭐
+   why ORDER BY CAN use an alias     → it runs after SELECT ⭐
+   why a WHERE on the right table kills a LEFT JOIN ⭐
+```
+
+### 2️⃣ NULL is not a value — it's "UNKNOWN" ⭐
+
+```
+NULL = "I don't know", NOT "empty" and NOT zero. ⭐
+
+Anything compared with an unknown gives UNKNOWN,
+and a row is only kept when the condition is TRUE. ⭐
+```
+
+Real-world idea: an **unmarked exam paper.** You cannot say it scored more than 50, and you cannot say it scored 50 or less. Both answers are *unknown*, so it's excluded from either list.
+
+```
+That ONE idea explains:
+   NULL = NULL is NOT true → use IS NULL ⭐
+   NOT IN with a NULL returns ZERO rows 💣 ⭐
+   "salary > 50000 OR salary <= 50000" MISSES the NULL row ⭐
+   COUNT(col) skips NULLs but COUNT(*) doesn't ⭐
+```
+
+### 3️⃣ A JOIN MULTIPLIES rows ⭐
+
+```
+A join doesn't "add columns" — it produces every MATCHING PAIR. ⭐
+4 matching rows × 4 matching rows = 16 rows ⭐
+```
+
+Real-world idea: **a wedding seating plan.** Four groomsmen and four bridesmaids don't make eight — they make **sixteen possible pairs**.
+
+```
+That ONE idea explains:
+   the 1,1,1,1 × 1,1,1,1 = 16 puzzle (§3.6) ⭐
+   why SUM() double-counts after a join 💥 ⭐
+   why DISTINCT after a join is a SMELL, not a fix ⭐
+   why COUNT(*) ≠ COUNT(b.id) on a LEFT JOIN ⭐
+```
+
+#### Easy memory — the three master ideas
+
+```
+1. EXECUTION ORDER ⭐  FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+                       (the kitchen, not the menu 🍳)
+2. NULL = UNKNOWN ⭐   (an unmarked exam paper 📄) → NOT IN 💣, IS NULL, COUNT
+3. JOINS MULTIPLY ⭐   (a wedding seating plan 💒) → 4×4 = 16, SUM double-counts
+```
+
+---
+
 # Part 0 — The two questions you were actually asked
 
 ## 🔴 Q0.1 — Mphasis L1: *"Total employees and average salary per department"*
@@ -205,6 +275,19 @@ CREATE TABLE orders (
 
 > *"`WHERE` filters rows before grouping, `HAVING` filters groups after aggregation — because logically `FROM` → `WHERE` → `GROUP BY` → `HAVING` → `SELECT` → `ORDER BY`. That order is also why `ORDER BY` can use a column alias and `WHERE` can't."*
 
+#### Easy memory
+
+```
+FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT ⭐
+       ↑ rows              ↑ groups   ↑ aliases born here ⭐
+
+Mnemonic: "From Where Groups Have Selected Orders Limited" ⭐
+
+WHERE  = filters ROWS   (before grouping) → cannot use COUNT() or an alias
+HAVING = filters GROUPS (after grouping)  → CAN use COUNT() ⭐
+ORDER BY runs LAST but one → it CAN use an alias ⭐
+```
+
 ---
 
 # Part 3 — Joins in full
@@ -225,6 +308,24 @@ CREATE TABLE orders (
 SELECT d.dept_name, e.emp_name FROM dept d LEFT  JOIN employee e ON e.dept_id = d.dept_id
 UNION
 SELECT d.dept_name, e.emp_name FROM dept d RIGHT JOIN employee e ON e.dept_id = d.dept_id;
+```
+
+#### Easy memory — the six joins
+
+```
+INNER      → only MATCHING rows in both        ⭐ the overlap
+LEFT       → ALL of the left + matches         ⭐ (the most-used)
+RIGHT      → ALL of the right + matches
+FULL OUTER → everything from both sides
+CROSS      → every combination (n × m) ⚠️
+SELF       → a table joined to itself (employee → manager) ⭐
+
+    LEFT              INNER             RIGHT
+   ●●●○○○            ○○●●●○○           ○○○●●●
+   keep all L        keep only the      keep all R
+   + matches         OVERLAP ⭐         + matches
+
+⚠️ A JOIN MULTIPLIES rows — 4 matches × 4 matches = 16 ⭐ (§3.6)
 ```
 
 ## 3.2 Worked output on the real data — this is what they want you to be able to predict
@@ -595,6 +696,22 @@ ORDER BY avg_sal DESC;
 
 > 🔴 **Performance point worth making unprompted:** *"I push every filter I can into `WHERE` rather than `HAVING`, because `WHERE` reduces the rows before they're aggregated and can use an index. `HAVING` only makes sense for conditions on the aggregate itself."*
 
+#### Easy memory — WHERE vs HAVING
+
+```
+WHERE  → filters ROWS   → BEFORE grouping → cannot see COUNT() ⭐
+HAVING → filters GROUPS → AFTER grouping  → CAN see COUNT() ⭐
+
+WHERE  salary > 50000        ✅ (a row-level fact)
+WHERE  COUNT(*) > 5          ❌ COUNT doesn't exist yet ⭐
+HAVING COUNT(*) > 5          ✅ ⭐
+
+You can use BOTH:
+   WHERE  (drop rows) → GROUP BY → HAVING (drop groups) ⭐
+```
+
+Real-world idea: **sorting exam papers.** `WHERE` throws out individual papers *before* you stack them by class; `HAVING` throws out whole classes *after* you've counted each stack.
+
 ## 5.3 Aggregate functions and their NULL behaviour
 
 | Function | NULLs | Empty input returns | Note |
@@ -824,6 +941,32 @@ FROM employee WHERE salary IS NOT NULL;
 **The one-liner:**
 > *"`ROW_NUMBER` is always unique and arbitrary between ties. `RANK` gives ties the same number and then **skips** — 1,2,2,4. `DENSE_RANK` gives ties the same number and **doesn't skip** — 1,2,2,3. For 'Nth highest salary' you want `DENSE_RANK`, because you're ranking salary *levels*, not people."*
 
+#### Easy memory — the three ranking functions ⭐
+
+```
+Salaries: 100, 90, 90, 80
+
+ROW_NUMBER()  → 1, 2, 3, 4   ⭐ ALWAYS unique, ties broken arbitrarily
+RANK()        → 1, 2, 2, 4   ⭐ ties share, then it SKIPS (like the Olympics 🥇)
+DENSE_RANK()  → 1, 2, 2, 3   ⭐ ties share, NO gap
+```
+
+Real-world idea: **an Olympic podium.**
+
+```
+Two athletes tie for silver 🥈🥈
+   RANK       → nobody gets 3rd; the next is 4th ⭐ (a real medal table)
+   DENSE_RANK → the next athlete IS 3rd ⭐
+   ROW_NUMBER → the tie is broken arbitrarily — someone is just "2nd" ⭐
+```
+
+```
+"Nth HIGHEST SALARY, counting ties as one" → DENSE_RANK ⭐
+"Top 3 rows per department, no duplicates"  → ROW_NUMBER ⭐
+```
+
+⭐ That distinction is exactly what the "second-highest salary" question is testing.
+
 ## 7.3 The functions worth knowing, with a use for each
 
 | Function | Does | Real use |
@@ -1009,6 +1152,22 @@ WHERE NOT EXISTS (SELECT 1 FROM employee e WHERE e.dept_id = dept.dept_id)      
 LEFT JOIN employee e ON e.dept_id = d.dept_id WHERE e.emp_id IS NULL            -- ③ anti-join
 ```
 > *"`NOT EXISTS` is my default because it's NULL-safe by construction — it asks 'does a matching row exist', which is a two-valued question."*
+
+#### Easy memory — the NULL bomb
+
+```
+NULL = UNKNOWN (an unmarked exam paper 📄), not empty and not zero ⭐
+
+NOT IN + a NULL in the subquery → ZERO rows, always 💣⭐
+   because  x <> NULL  is UNKNOWN, and TRUE AND UNKNOWN = UNKNOWN
+
+FIX ⭐ NOT EXISTS — it asks "does a row exist?", a TWO-valued question
+   or filter: WHERE dept_id IS NOT NULL
+   or an anti-join: LEFT JOIN ... WHERE b.id IS NULL
+
+NULL = NULL → NOT true ⭐ → use IS NULL
+COUNT(*) counts rows | COUNT(col) SKIPS NULLs ⭐
+```
 
 ## 10.3 The NULL-handling functions
 

@@ -108,7 +108,7 @@ These are ranked by how often they've actually been asked across your six logged
 
 **"Tell me about yourself"** — 60–75 seconds, in this order:
 
-1. **Now:** *"I'm a full-stack developer with 4+ years, working primarily with Angular on the frontend and Java with Spring Boot on the backend."*
+1. **Now:** *"I'm a full-stack developer with 5 years, working primarily with Angular on the frontend and Java with Spring Boot on the backend."*
 2. **The AI&E hook (say this — it's the role's own theme):** *"My most recent work is RoboGebra, an AI-powered math explanation engine — a Spring Boot service that builds prompts, calls an AI model, parses the step-by-step explanation and serves it to an Angular and Ionic frontend, with bilingual output."*
 3. **Range:** *"Before that I worked on EasyVisa, a document portal with reactive forms and NgRx, and Subsea's schedule manager. So I've moved between frontend-heavy and backend-heavy work depending on what the project needed."*
 4. **Close on fit:** *"This role is full-stack Java with Angular on client engagements under Deloitte's AI&E group, which is exactly the mix I've been doing — and the AI side is where I want to keep growing. That's why I'm interested."*

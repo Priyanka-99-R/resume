@@ -23,9 +23,10 @@
 | 9 | **Deloitte (USI)** | Fullstack Java + Angular · AI&E–EaaS · SWE II — *25 Aug 2026* | 🟡 **RESULT PENDING** | → prep: [35](./35-deloitte-fullstack-java-angular-25aug.md) |
 | 10 | **Altimetrik** | **Fullstack Java + Angular (2nd attempt)** — *31 Aug 2026* | ❌ Not cleared | ✅ 22 → [§](#-altimetrik--fullstack-java--angular-round-31-aug-2026) |
 | 11 | **IQVIA** | 🆕 **Angular/Ionic Technical Lead** — *coming days* | 🔵 **SCHEDULED** | → prep: **[38](./38-iqvia-technical-lead-prep.md)** |
-| | | | | **134 logged** |
+| 12 | **Capgemini** | 🆕 **Java + Spring + Angular** — *Sept 2026* | 🟡 **RESULT PENDING** | ✅ 10 → [§](#-capgemini--java--spring--angular-round-sept-2026) · full answers: **[41](./41-capgemini-java-angular-3sep.md)** |
+| | | | | **144 logged** |
 
-> **Read this as data, not as a verdict.** Eight companies, **134 questions**, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-6-rejections)** below.
+> **Read this as data, not as a verdict.** Nine companies, **144 questions**, and the **same topics keep repeating**. That's genuinely good news: the question bank is small and knowable. See **[§ What the pattern says](#-what-the-pattern-says-across-6-rejections)** below.
 
 ## Companies logged
 
@@ -42,7 +43,8 @@
 | **Virtusa** | 🆕 Round 2 — Java core (HashMap, threads, interface vs abstract) | 4 | [→](#-virtusa--round-2-java-core-aug-2026) |
 | **Tech Mahindra** | Angular Developer — full breadth sweep | 15 | [→](#-tech-mahindra--angular-developer-round-aug-2026) |
 | **Altimetrik** | 🆕 **Fullstack Java + Angular (31 Aug 2026)** — Spring depth + Angular + Streams | 22 | [→](#-altimetrik--fullstack-java--angular-round-31-aug-2026) |
-| | | **134** | |
+| **Capgemini** | 🆕 **Java + Spring + Angular (Sept 2026)** — breadth sweep + 1 Streams program | 10 | [→](#-capgemini--java--spring--angular-round-sept-2026) |
+| | | **144** | |
 
 ---
 
@@ -91,6 +93,24 @@ Things worth capturing for any online assessment:
 
 ---
 
+
+> ## 🔵 Answer these with YOUR CODE, not with definitions ⭐
+>
+> The questions in this file repeat across companies. What changes the outcome is **finishing each answer with one concrete thing from your own codebase**:
+>
+> ```
+> Lifecycle hooks (5 rounds ⭐) → "ngOnDestroy in 100 components, 426 takeUntil"
+> Interceptors (4 rounds ⭐)    → the FormData Content-Type trap + cancelRequests$
+> Observable vs Promise (4 ⭐)  → "switchMap 246 times — the auth interceptor and every search"
+> Data binding (4 rounds)      → 252 @Input, and OnPush on the 6 heavy components
+> HashMap internals (3 rounds) → the N+1 aggregation fix (same reasoning, in Mongo)
+> Lazy loading (3 rounds)      → 27 route resolvers, access-ruler resolvers
+> ```
+>
+> **Definition → one thing from my code → one trade-off.** Three sentences. That is what five years sounds like.
+> Full inventory: **[39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
+
+
 ## 🔁 Most-repeated questions across ALL companies
 
 > **If you prepare nothing else, prepare these.** The count is how many separate rounds asked it.
@@ -112,7 +132,10 @@ Things worth capturing for any online assessment:
 | **2 rounds** | **Unsubscribing / memory leaks** | [20](./20-rxjs-operators.md) |
 | **2 rounds** | **Global exception handling** | [06](./06-spring-boot.md) · below |
 | **2 rounds** | **Preventing duplicate API calls on rapid clicks** | below (Altimetrik Q9) · [37 Q18](./37-altimetrik-fullstack-java-angular-31aug.md) (refresh stampede — same technique) |
-| **2 rounds** | **Spring stereotypes / DI wiring** 🆕 | [06](./06-spring-boot.md) · [37 Q3–7](./37-altimetrik-fullstack-java-angular-31aug.md) |
+| **3 rounds** 🆕 | **Spring stereotypes / DI wiring** (`@Component` vs `@Bean`, constructor vs setter) | [06](./06-spring-boot.md) · [37 Q3–7](./37-altimetrik-fullstack-java-angular-31aug.md) · [41 Q3–4](./41-capgemini-java-angular-3sep.md) |
+| **2 rounds** 🆕 | **`ngOnChanges` vs `ngDoCheck`** | [04](./04-angular.md) · Photon Q6 below · [41 Q9](./41-capgemini-java-angular-3sep.md) |
+| **2 rounds** 🆕 | **Non-repeating character** (first / second-from-the-end) | [22](./22-java-streams-coding-problems.md) · Altimetrik Q3 below · [41 Q10](./41-capgemini-java-angular-3sep.md) |
+| **2 rounds** 🆕 | **Externalised config — dev/QA/prod, how values are loaded** | [06](./06-spring-boot.md) · [37 Q14](./37-altimetrik-fullstack-java-angular-31aug.md) · [41 Q5](./41-capgemini-java-angular-3sep.md) |
 
 ---
 
@@ -1710,6 +1733,31 @@ A chain of `Node<K,V>` objects: `final int hash` (cached — computed once), `fi
 | 22 | 🔴 **Highest-paid employee per department → department + name** | `groupingBy` + `collectingAndThen(maxBy(...), e -> e.map(Employee::getName))`, or the cleaner 3-arg `toMap` + `BinaryOperator.maxBy`. **Ties → `maxBy` keeps one.** Output: `IT -> Peter`, `Sales -> Liza` |
 
 > 💬 **What this round says:** Altimetrik tested **Spring wiring you can only know from building** — scanning across packages, `@Qualifier` vs `@Primary`, the repository hierarchy, the *classes* inside pagination. And **Q22 is the third time you've been asked highest-salary-per-department** (Altimetrik R1 in Streams, Mphasis in SQL, here again). Together with lifecycle hooks (**5 rounds**), interceptors (**4**), data binding (**4**) and lazy loading (**3**), the repeat list is now undeniable. The new muscle to build is **microservice failure vocabulary**: timeout · circuit breaker · retry+backoff · idempotency key · **transactional outbox** · DLQ · compensating transaction.
+
+---
+
+# 🟦 Capgemini — Java + Spring + Angular round (Sept 2026)
+
+> 🆕 **Attended early Sept 2026 · result pending.** A **breadth sweep**, not a depth round: 2 Java core → 4 Spring/architecture → 3 Angular → 1 Streams live-coding.
+> 📄 **All 10 questions are answered in full in → [41 — Capgemini Java + Spring + Angular](./41-capgemini-java-angular-3sep.md).**
+>
+> ⚠️ **Q10 was not written in the round** — the program is now solved four ways in [41 §Q10](./41-capgemini-java-angular-3sep.md#10--live-coding--second-non-repeating-character-from-the-end). **Type it.**
+> 🔁 **7 of the 10 were repeats** of questions already in this file, and **two of them (`@Component` vs `@Bean`, and dev/QA/prod config) had been asked at Altimetrik four days earlier.**
+
+| # | Question | Notes |
+|---|---|---|
+| 1 | **Java 8 new features** | Answer in **5 groups**: lambdas + functional interfaces · **Stream API** · interface `default`/`static` methods · `Optional` · `java.time`. Traps: streams are **lazy**, a stream is **single-use**, `parallelStream()` uses the shared common ForkJoinPool. Memory hook: **L.S.I.O.D.** |
+| 2 | **HashMap and LinkedHashMap** | Same family, one difference — **order**. `HashMap` none · `LinkedHashMap` **insertion order** (`HashMap` + a doubly-linked list; `accessOrder=true` + `removeEldestEntry` = **LRU cache**) · `TreeMap` sorted, O(log n). Internals: hash → `& (n-1)` → bucket → list → **treeify at 8 with table ≥ 64**, load factor 0.75. ⚠️ mutable keys, `equals`/`hashCode` as a pair |
+| 3 | **Setter injection and constructor injection** | **Constructor = mandatory** (fields `final`, fail-fast at startup, testable with plain `new`, `@Autowired` optional since 4.3); **setter = optional** with a default. **Field injection ❌.** ⭐ Circular deps: constructor → `BeanCurrentlyInCreationException` at startup (good); setter hides it — and Boot **2.6+ disallows circular refs by default** |
+| 4 | **`@Component` and `@Bean`** | `@Component` = **class**, Spring builds it, found by scanning, name = decapitalised class · `@Bean` = **method** in `@Configuration`, **you** build it, name = method name — **the only way to register a third-party class**, and the way to do conditional/multiple instances. ⭐ The **`proxyBeanMethods`** trap: calling one `@Bean` method from another returns the *same* singleton |
+| 5 | **How do microservices load values?** | Externalised config — **one artefact, many environments**. `@Value` · **`@ConfigurationProperties` (type-safe, validated) ✅** · `Environment` · `@Profile`. ⭐ **Precedence: CLI args > env vars > external `application-{profile}.yml` > external `application.yml` > the ones in the jar > defaults**, with **relaxed binding** (`payment.timeout-ms` == `PAYMENT_TIMEOUT_MS`). At scale: **Spring Cloud Config Server on git** + `@RefreshScope` + Cloud Bus; K8s ConfigMap/Secret; **secrets in Vault / AWS Secrets Manager, never in git** |
+| 6 | **Monolithic and microservices** | One deployable + one DB vs many deployables + **database per service**. Microservices are an **organisational** answer first; the cost is that a method call becomes a network call (slow · fails · arrives twice) and `@Transactional` becomes a **Saga**. Name the **distributed monolith** anti-pattern. 🔴 **RoboGebra is a MODULAR MONOLITH** — no Eureka, Feign, circuit breaker or Kafka. Say so |
+| 7 | **Components in Angular** | `@Component` decorator + class = one piece of screen + its logic. The 4 files, the metadata (`selector`, `providers` = **new instance per component**, `changeDetection: OnPush`, `encapsulation`), the component **tree**, and communication: `@Input` ↓ · `@Output`/`EventEmitter` ↑ · shared service + `BehaviorSubject` · `@ViewChild`. ⚠️ Honesty guard: your codebase is **NgModule-based, no signals** |
+| 8 | **How to create a new component** | `ng g c student-card` → **4 files + it registers the class in the nearest NgModule's `declarations`** (say that fourth step — it's the actual answer). Flags: `--dry-run`, `--skip-tests`, `--module`, `--standalone`, `--change-detection=OnPush`, `--flat`. ⚠️ `'app-x' is not a known element` = not declared · declared but not **`exported`** · typo |
+| 9 | ⭐ **`ngOnChanges` and `ngDoCheck`** | `ngOnChanges` = only when an **`@Input` reference** changes, gets `SimpleChanges` (`previousValue`/`currentValue`/`firstChange()`); `ngDoCheck` = **every change-detection cycle**, no arguments, you do the comparing. ⭐ **Angular compares inputs with `===`** — so a *mutated* object never fires `ngOnChanges`, and that's why `ngDoCheck` exists. Keep it cheap; better still, make inputs **immutable** and use `OnPush`. **2nd round running** (Photon asked it too) |
+| 10 | 🔴 **`String name = "Priyanka"` — 2nd non-repeating character from the END, using Stream API** | **Answer: `n`.** Counts: `a=2`, everything else 1 → non-repeating in order `P r i y n k` → from the end: `k`, then **`n`**. **Stream API in 3 simple steps:** **① count** each character — `groupingBy(c -> c, LinkedHashMap::new, counting())` → `{P=1, r=1, i=1, y=1, a=2, n=1, k=1}` · **② keep count == 1** → `[P, r, i, y, n, k]` · **③ take `single.get(single.size() - 2)`** → **`n`**. ⭐ **`LinkedHashMap` is the whole trick** — a plain `HashMap` loses the order and "2nd from the end" stops meaning anything. **O(n).** ⚠️ **Not written in the round** — [simple solution, explained line by line](./41-capgemini-java-angular-3sep.md#-the-program--the-simple-one-write-this) |
+
+> 💬 **What this round says:** nine questions you already had answers for, then **one program that decides the outcome**. That is now the pattern at Altimetrik, Photon, Codeboard **and** Capgemini. Theory gets you to the coding question; the coding question gets you the offer. **Type one problem a day from [22 — Java Streams](./22-java-streams-coding-problems.md)** — reading them is a different skill from writing them under a shared screen.
 
 ---
 

@@ -1442,7 +1442,7 @@ public class ProductsApiTests : IClassFixture<WebApplicationFactory<Program>>
 
 ## Script 1 — "Tell me about yourself" (for a .NET role, 60 seconds)
 
-> *"I'm Priyanka, a full-stack developer with 4+ years' experience. My front-end is **Angular** — Angular 16 and 18 with RxJS, NgRx and Ionic, including a hybrid mobile app.*
+> *"I'm Priyanka, a full-stack developer with 5 years' experience. My front-end is **Angular** — Angular 16 and 18 with RxJS, NgRx and Ionic, including a hybrid mobile app.*
 >
 > *On the backend I've worked across two stacks. On **Subsea**, a marine equipment and operations platform, the backend was a **.NET Web API** with Angular in front, in Docker on Azure — I owned the Schedule-Manager module end to end, both the Angular feature module and the .NET endpoints behind it. My other backend experience is **Java with Spring Boot** — REST APIs, dependency injection, layered architecture and JPA.*
 >

@@ -43,6 +43,82 @@ Rate each **✅ can teach it / ⚠️ can define it / ❌ blank**. Study the ❌
 
 ---
 
+---
+
+## 🔵 YOUR EVIDENCE — a real file for every one of their 10 areas ⭐
+
+> **This is the difference between "I know Angular" and "here's where I did it."** Every row below is verified in `/Users/safi/workspace/robogebra-workspace`. Full detail: **[39 — RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
+
+| Their area | Your evidence | The line to say ⭐ |
+|---|---|---|
+| **1. Angular** | 163 components · 89 services · 27 resolvers · 4 guards · Angular 18.2 | *"Three Angular apps — the mobile one is on 18.2, the two web apps on 16.2."* |
+| **change detection** | `OnPush` on 6 components + **55 `trackBy`** | *"`OnPush` selectively on the long progress lists and the AI editor — not globally, because on a mature codebase that ships silent UI bugs wherever an input array is mutated."* ⭐ |
+| **memory leaks** | **426 `takeUntil`** · 5 `takeUntilDestroyed` · 311 `async` pipe | *"Over 400 `takeUntil(destroy$)`, and newer code uses `takeUntilDestroyed`."* |
+| **2. TypeScript** | `PageResponse<T>` + `static fromJSON<U>(data, mapper)` · typed `ErrorCode` enums | *"Every paginated response is a generic `PageResponse<T>` with a static factory that takes a mapper, so the item type survives end to end."* ⭐ |
+| **3. RxJS** | switchMap 246 · BehaviorSubject 122 · catchError 338 · finalize 254 · forkJoin 22 | *"`switchMap` in the auth interceptor and every search; `forkJoin` for the three parallel calls after login."* |
+| **NgRx** | ❌ **0 usages** — BehaviorSubject services instead | *"A deliberate choice — I'd reach for NgRx when state is shared across many unrelated features."* ⭐ |
+| **4. Ionic + Capacitor** | Ionic 8.7.5 · Capacitor 6.2.1 · **19 native plugins** | *"Push via Firebase, native Razorpay checkout, network detection, and `Preferences` rather than `localStorage` because the OS can evict WebView storage."* ⭐⭐ |
+| **5. REST + Security** | JWT via **AWS Cognito** + JWKS · one interceptor for token + 401 refresh | *"We validate against Cognito's JWKS endpoint, so the API never holds a signing secret."* ⭐ |
+| **6. MongoDB + SQL** | 104 `@Document` · 85 repositories · **27 `@Aggregation`** · compound indexes | *"The N+1 fix was one `$match`/`$in` pipeline instead of fifty-one queries."* ⭐⭐ |
+| **7. Microservices** | ❌ modular **monolith** — no Eureka/Feign/circuit breaker | *"Monolith first. The boundaries are drawn; we haven't paid the operational cost."* ⭐ |
+| **8. Git + CI/CD + Cloud** | **Jenkins** CI + CD · Docker · **LocalStack** for local AWS · S3 · Cognito | *"LocalStack means a new developer gets S3 and Cognito without real AWS credentials."* ⭐ |
+| **9. Technical Lead** | **Angular 16 migration across 4 repos** · the `AsyncConfig` pool decision | *"The hard part is never Angular — it's the third-party libraries."* ⭐ |
+| **10. AI-assisted dev** | The AI explanation engine sits **behind your own service** | *"The client never calls the model directly — that keeps the key server-side and lets us cache and normalise responses."* ⭐ |
+
+---
+
+### ⚠️ The four things NOT to claim — each dies on ONE follow-up
+
+```
+❌ SIGNALS          → 0 usages in your code ⭐
+      ✅ "Studied, not shipped. Our app grew from Angular 12 and is still
+          zone-based. I'd migrate signal INPUTS on leaf components first —
+          lowest risk, clearest win — then work upward. What signals really
+          unlock is zoneless change detection, and that's not something you
+          turn on halfway." ⭐
+
+❌ STANDALONE       → 2 components only ⭐
+      ✅ "New code is standalone-first; legacy NgModules convert when we're
+          already touching them. A big-bang migration on a shipping product
+          was never worth the regression risk." ⭐
+
+❌ NgRx on RoboGebra→ 0 usages (it's EasyVisa) ⭐
+      ✅ "NgRx was EasyVisa. On RoboGebra we deliberately went simpler."
+
+❌ MICROSERVICES    → modular monolith ⭐
+      ✅ "One deployment, clean domain boundaries. Monolith first."
+```
+
+⭐ **In a Technical Lead interview, saying "we chose not to, and here's the trade-off" scores HIGHER than claiming the buzzword.** They are testing judgement, not vocabulary.
+
+---
+
+### 🗣️ Your three strongest stories — rehearse these until they're smooth ⭐
+
+```
+1. THE IONIC MOBILE APP ⭐⭐  ← your opener; it IS the job description
+   "We had a working Angular web app and needed to reach mobile without
+    rebuilding. I built it with Ionic and Capacitor, reusing our existing
+    services and models, with about nineteen native plugins. The genuinely
+    new thing was the Ionic page lifecycle — pages stay alive in the
+    navigation stack, so ngOnInit runs once and anything that must be fresh
+    goes in ionViewWillEnter."
+
+2. THE N+1 FIX ⭐⭐  ← your "hardest problem" answer
+   "One query plus N, because @DBRef resolves each reference separately.
+    Fifty exercises meant fifty-one round trips. One aggregation pipeline
+    with $match and $in replaced it. A document database doesn't remove
+    the N+1 problem — it just changes what it looks like."
+
+3. THE ANGULAR 16 MIGRATION ⭐  ← your LEADERSHIP answer (Tech Lead round)
+   "Four repositories. I planned it repo by repo and tested each before
+    moving on, so the team was never blocked for long. The hard part is
+    never Angular itself — it's the third-party libraries that haven't
+    released a compatible version yet."
+```
+
+---
+
 ## 🧭 The three habits that decide the round
 
 The pattern across your 10 logged rounds is consistent: **you answer question one and lose on question two.** Fix that mechanically.
@@ -318,6 +394,19 @@ this.zone.run(() => this.state = done);   // re-enter only when the UI must upda
 > 🎯 **The modern closer:** "With **signals**, Angular knows exactly which components read the value that changed, so it can do **fine-grained** updates instead of dirty-checking a tree — and that's what makes **zoneless** (`provideZonelessChangeDetection()`) possible."
 
 ## 1.11 Signals
+
+> ⚠️ **HONESTY GUARD — read before answering this topic.**
+>
+> ```
+> signal() / computed() / effect() in your codebase → 0 usages ⭐
+> ```
+>
+> Learn the section below properly — you must be able to *discuss* signals for a lead role. But **do not imply you've shipped them.** The safe framing, which scores better anyway:
+>
+> > *"Signals I've studied but haven't shipped. Our mobile app is on Angular 18 but grew from 12, so change detection is still zone-based. The migration I'd run is signal **inputs** on leaf components first — lowest risk, clearest win — then work upward. What signals really unlock is zoneless change detection, and that's not something you turn on halfway."*
+>
+> ⭐ Naming a **migration order** is what a technical lead is expected to have. Claiming adoption invites one follow-up you can't answer.
+
 
 **What:** a reactive primitive — a value that knows who reads it, so Angular can update precisely what changed.
 

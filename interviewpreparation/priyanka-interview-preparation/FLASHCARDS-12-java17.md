@@ -1,7 +1,8 @@
 # 🃏 Java 17 — Rapid-Recall Flashcards
 
 > Cover the **A:** line, say your answer out loud, then check. Full detail in [12-java17-features.md](./12-java17-features.md).
-> ⚡ = high-yield for Berribot. Target: name 5 Java 17 features + where you'd use them, cold.
+> ⚡ = high-yield in every round. Target: name 5 Java 17 features + where you'd use them, cold.
+> 🔵 **Your stack:** Java 17 · Spring Boot 3.2 · **26 `record` files** in the portal — records are used for DTOs and value objects, **never** for a persistence model (the Mongo mapper needs a no-arg constructor and mutable fields, same as Hibernate) ⭐
 
 ---
 

@@ -1,14 +1,94 @@
-# Coding Problems — Solutions (JavaScript & Java)
+# Coding Problems — Solutions (JavaScript & Java) — Easy Version
 
-Common coding-round problems for a Wipro lateral interview, easy → medium, with approach, complexity, and clean code.
+Common coding-round problems, easy → medium, with the approach, the complexity, and clean code.
+
+---
+
+## 🧠 The easiest way to solve ANY of these — spot the PATTERN
+
+⭐ You are not memorising 60 solutions. You are learning **6 patterns**. Almost every problem below is one of them.
+
+```
+1. TWO POINTERS ⭐      "from both ends" or "slow + fast"
+      → palindrome · reverse in place · pair with a sum (sorted) · move zeros
+      → O(n) time, O(1) space ⭐
+
+2. HASH MAP / SET ⭐    "have I seen this before?"
+      → duplicates · two sum · anagrams · frequency count · first non-repeating
+      → trades SPACE for TIME: O(n²) → O(n) ⭐
+
+3. SLIDING WINDOW      "a contiguous chunk that grows and shrinks"
+      → max subarray (Kadane) · longest substring without repeats
+
+4. SORT FIRST          "does sorting make it obvious?"
+      → anagrams · second largest · merge · group anagrams
+      → costs O(n log n), so only if a hash map can't do it ⭐
+
+5. MATH / IN-PLACE     "can I avoid extra memory?"
+      → missing number (sum formula) · swap without temp · reverse in place
+
+6. RECURSION           "does the problem contain a smaller version of itself?"
+      → factorial · fibonacci · power · sum of an array
+```
+
+### The decision question ⭐
+
+```
+"Have I seen this value before?"        → HASH SET ⭐
+"Count how many of each?"               → HASH MAP ⭐
+"Is the array SORTED, or can I sort it?"→ TWO POINTERS / BINARY SEARCH ⭐
+"A contiguous run of elements?"         → SLIDING WINDOW
+"O(1) space required?"                  → TWO POINTERS or MATH ⭐
+```
+
+Real-world idea: these are **six tools in a toolbox**, not sixty separate skills. You don't memorise every repair — you learn to recognise which tool the job needs.
+
+### The complexity numbers to have ready ⭐
+
+```
+O(1)        a hash lookup, arithmetic
+O(log n)    binary search ⭐ (halving each step)
+O(n)        one pass ⭐ ← the target for most of these
+O(n log n)  sorting ⭐
+O(n²)       nested loops 💥 ← usually the thing you're being asked to remove
+```
+
+⭐ **The single most common improvement in an interview:** a nested loop (O(n²)) replaced by a **hash set** (O(n)). If you're stuck, ask yourself whether a set would help — it usually does.
+
+---
 
 ## Tips for the coding round
-- **Clarify first:** ask about input type, size, edge cases (empty, null, negatives, duplicates).
-- **Think aloud:** explain your approach before coding — interviewers grade reasoning.
-- **Start simple, then optimize:** a brute-force that works beats an elegant solution that doesn't.
-- **State complexity:** mention time & space (Big-O) for your solution.
-- **Dry-run:** walk through one example to prove correctness.
-- **Handle edge cases:** empty array, single element, all duplicates, etc.
+
+```
+1. CLARIFY FIRST ⭐ — input type, size, edge cases (empty, null, negatives, duplicates)
+      "Can the array be empty?" "Are there duplicates?" "Is it sorted?"
+      → this alone marks you as experienced ⭐
+
+2. THINK ALOUD ⭐ — say the APPROACH before you write any code
+      "I'll use a hash set to track what I've seen — that makes it one pass, O(n)."
+      → interviewers grade your REASONING, not your typing ⭐
+
+3. BRUTE FORCE FIRST, then optimise ⭐
+      A working O(n²) beats an elegant solution that doesn't compile.
+      Say: "let me get it correct first, then improve it."
+
+4. STATE THE COMPLEXITY ⭐ — time AND space, unprompted
+
+5. DRY-RUN one example ⭐ — walk through it out loud and prove it works
+
+6. HANDLE EDGE CASES — empty, one element, all duplicates, negatives
+```
+
+⭐ **The habit that scores highest:** narrate the trade-off. *"I could sort it for O(n log n) and no extra space, or use a set for O(n) time and O(n) space — I'll take the set unless memory is tight."*
+
+#### Easy memory
+
+```
+6 PATTERNS ⭐  two pointers · HASH MAP ⭐ · sliding window · sort first · math · recursion
+THE QUESTION  "have I seen this before?" → a SET ⭐ (turns O(n²) into O(n))
+
+Clarify → say the approach → brute force → optimise → complexity → dry-run ⭐
+```
 
 ---
 
@@ -529,3 +609,48 @@ function findDuplicate(nums) {
   return -1;
 }
 ```
+
+---
+
+## Quick Revision Sheet — the patterns and the 12 problems that cover most rounds
+
+```
+THE 6 PATTERNS ⭐
+  1. TWO POINTERS   both ends / slow+fast  → O(n) time, O(1) space ⭐
+  2. HASH MAP/SET ⭐ "seen it before?"      → turns O(n²) into O(n) ⭐
+  3. SLIDING WINDOW contiguous chunk        → Kadane, longest substring
+  4. SORT FIRST     makes it obvious        → costs O(n log n)
+  5. MATH/IN-PLACE  avoid extra memory      → sum formula, XOR swap
+  6. RECURSION      contains itself         → factorial, power, fibonacci
+
+THE 12 THAT COME UP MOST ⭐
+  reverse a string ......... two pointers / StringBuilder.reverse()
+  palindrome ............... two pointers ⭐ O(1) space
+  anagram .................. sort both, or compare FREQUENCY MAPS ⭐
+  first non-repeating ...... LinkedHashMap (ORDER matters! ⭐)
+  two sum .................. hash map of value → index ⭐ (one pass)
+  missing number ........... n(n+1)/2 − sum ⭐ (O(1) space)
+  second largest ........... one pass, two variables ⭐ (don't sort!)
+  max subarray ............. KADANE ⭐ (keep or restart)
+  move zeros ............... two pointers, in place ⭐
+  duplicates ............... a SET ⭐
+  fibonacci ................ iterative, or memoised ⭐ (naive recursion is O(2ⁿ) 💥)
+  balanced parentheses ..... a STACK ⭐
+
+THE TRAPS ⭐
+  second largest → handle DUPLICATES ⭐ (sort+skip, or use distinct)
+  binary search  → mid = low + (high−low)/2 ⭐ (avoids integer overflow)
+  fibonacci      → naive recursion is O(2ⁿ) — say that, then memoise ⭐
+  strings in a loop → StringBuilder in Java, array+join in JS ⭐ (O(n²) otherwise)
+  reverse in place → swap, don't build a new array, if O(1) space is asked ⭐
+
+IN THE ROOM ⭐
+  Clarify → state the approach → brute force → optimise → complexity → dry-run
+  "Have I seen this before?" → reach for a SET ⭐
+  Narrate the TRADE-OFF: "sort for O(n log n) and no extra space, or a set
+  for O(n) time and O(n) space — I'll take the set unless memory is tight." ⭐
+```
+
+---
+
+**Related files:** [22 — Java Streams Coding Problems](./22-java-streams-coding-problems.md) · [01 — JavaScript](./01-javascript.md) · [05 — Core Java](./05-java.md) · [23 — Predict the Output](./23-java-output-tricky-questions.md)

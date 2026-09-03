@@ -1,9 +1,22 @@
 # Berribot Assessment — Master Prep Guide
 
-**Target role:** Senior Full Stack Developer (4.8+ years)
+**Target role:** Senior Full Stack Developer (**5 years**)
 **Stack:** Java 17 · Spring Boot · Angular 16 · MongoDB · MySQL · Microservices · AWS S3
 
 This guide maps the assessment's stack to your study files, flags gaps, and gives you a focused plan + key talking points.
+
+> ⚠️ **Status note (3 Sept 2026).** This guide was written for the **Berribot** assessment in July. Two things have changed since, and they change the answers:
+>
+> ```
+> ❌ "MongoDB is a gap"  →  ✅ It is your CURRENT production database ⭐
+>       RoboGebra: 104 @Document · 85 repositories · 27 @Aggregation pipelines
+>       plus Mongoose on the Node CRM. Stop treating it as a weakness.
+>
+> ❌ "Java 17 is a gap"  →  ✅ The portal IS Java 17 / Spring Boot 3.2 ⭐
+>       26 files use `record`. You ship on it daily.
+> ```
+>
+> **The stack in this guide still maps well to most Java+Angular roles** — keep using it for the full-stack design section. But read the gap table below with the correction above. See **[13 MongoDB](./13-mongodb.md)** and **[39 RoboGebra Code Examples](./39-robogebra-code-examples.md)**.
 
 ---
 
@@ -135,7 +148,7 @@ They list **both** — expect "when do you use which?"
 
 ---
 
-## 8. Senior-level talking points (4.8+ years framing)
+## 8. Senior-level talking points (5-year framing)
 
 At "senior," they expect **ownership and judgment**, not just coding:
 - Talk about **design decisions and trade-offs** (why MongoDB vs MySQL, why a service split).

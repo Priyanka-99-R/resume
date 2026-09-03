@@ -1,10 +1,83 @@
 # 🟨 Altimetrik — Fullstack Java + Angular round (31 Aug 2026)
 
-> 📅 **Attended: Sunday 31 Aug 2026.** Result pending.
+> 📅 **Attended: Sunday 31 Aug 2026.** ❌ **Not cleared.**
+> 
+> ⚠️ **Read this as a study list, not a post-mortem.** The round was lost on **Spring wiring depth** — component scanning across packages, `@Qualifier` vs `@Primary`, the repository hierarchy, the *classes* inside pagination. Those are now fully answered below and in **[06 — Spring Boot](./06-spring-boot.md)**. **Every one of these 22 questions will be asked again somewhere else** — lifecycle hooks are on their 5th round, interceptors on their 4th.
 > 🔁 **Second time at Altimetrik.** Your first attempt (Level 1 Java + an Angular round, **24 questions**) is logged in **[26 — Companies §Altimetrik](./26-companies-asked-questions.md#-altimetrik--level-1-round-java)**. This round was a different shape: **Spring Boot depth first, Angular second, one Streams coding problem to close.**
 >
 > **Shape of the round:** ~22 questions — **2 Java (records + pattern matching) → 10 Spring/Spring Boot → 2 microservices → 1 config/environments → 6 Angular → 1 Java Streams live-coding.**
 > **The signal:** they went *deep on Spring wiring* (component scanning across packages, `@Qualifier` vs `@Primary`, `CrudRepository` vs `JpaRepository`, pagination classes) — this was not a breadth sweep, it was an "does she actually build with Spring Boot or just use it?" round.
+
+---
+
+---
+
+## 🧠 The lesson from this round — in one page
+
+> This round was lost on **Spring wiring depth**. Not on effort, and not on Angular. Here is exactly what "depth" meant, so the same gap can't happen twice.
+
+```
+What a BREADTH round asks          What THIS round asked ⭐
+──────────────────────────         ───────────────────────
+"What is @Autowired?"              "Two beans of the same type —
+                                    what EXACTLY happens, and what's the
+                                    precedence between @Qualifier,
+                                    @Primary and the bean name?" ⭐
+
+"What is a repository?"            "CrudRepository vs JpaRepository —
+                                    what does the hierarchy give you,
+                                    and what does findAll() RETURN?" ⭐
+
+"How does pagination work?"        "Name the CLASSES involved." ⭐
+                                    (Pageable · PageRequest · Sort ·
+                                     Page/PageImpl · Slice/SliceImpl)
+
+"Do you use Spring Boot?"          "Multiple packages — how does Spring
+                                    read all the annotations?" ⭐
+                                    (scanBasePackageClasses, @EntityScan,
+                                     @EnableJpaRepositories, auto-config)
+```
+
+### The pattern to recognise ⭐
+
+```
+A DEPTH round is testing one thing:
+
+   "Has she BUILT with this, or has she USED it?" ⭐
+
+The tell is that the questions go one level BELOW the API you type every day —
+into the classes behind it, the precedence rules, the return types.
+```
+
+Real-world idea: **anyone can drive a car. This round asked what happens when you press the clutch.**
+
+### How to answer a depth question when you're not sure ⭐
+
+```
+1. Give the SHAPE confidently — what you DO know
+2. Name the CLASS or the RULE if you can reach it
+3. Say honestly where your certainty ends ⭐
+4. Say how you'd check it
+
+"Pagination gives you a Page, which carries the content plus the total —
+ so it runs a second COUNT query, whereas Slice runs one and only knows
+ whether there's a next page. The concrete classes are Pageable and
+ PageRequest, and I believe PageImpl is the implementation — that last
+ one I'd confirm in the source rather than guess." ⭐
+```
+
+⭐ **That answer scores far better than a confident wrong class name.** Depth rounds punish bluffing much harder than they punish a bounded "I'd check that."
+
+### The three things to drill from this round
+
+```
+1. @Qualifier > @Primary > bean name ⭐ (and by TYPE first → NoUniqueBeanDefinition)
+2. CrudRepository → PagingAndSortingRepository → JpaRepository ⭐
+      JpaRepository.findAll() returns List; CrudRepository returns Iterable ⭐
+3. Page (2 queries, has the total ⭐) vs Slice (1 query, hasNext only) ⭐
+```
+
+→ All three are now written up in **[06 — Spring Boot](./06-spring-boot.md)**.
 
 ---
 

@@ -7,6 +7,28 @@
 
 ---
 
+
+> ## 📌 Status note (3 Sept 2026)
+>
+> **This round was attended — ❌ not selected** (logged in **[26 — Companies](./26-companies-asked-questions.md)**, 7 questions).
+>
+> **Keep this file.** It is the best *template* in the pack for a **"Java + Angular + Ionic, single round"** interview, and that shape keeps recurring — it is close to the **IQVIA** brief. Reuse it as a rehearsal script; just swap the company facts.
+>
+> ⚠️ **Two answers in here need the current version of the facts:**
+>
+> ```
+> MongoDB  → NOT a gap. It is your production database ⭐
+>            104 @Document · 85 repositories · 27 @Aggregation pipelines
+>            + Mongoose on the Node CRM
+>
+> Ionic    → name YOUR 19 Capacitor plugins, not a textbook list ⭐
+>            push (Firebase) · native Razorpay · network · Preferences
+>            (Preferences over localStorage — the OS can evict WebView storage)
+> ```
+>
+> → **[13 MongoDB](./13-mongodb.md)** · **[15 Ionic](./15-ionic-level1.md)** · **[39 RoboGebra Code Examples](./39-robogebra-code-examples.md)**
+
+
 ## 0. 🔴 WHAT THEY ACTUALLY ASKED — the real question list (with answers)
 
 > **This round has now happened.** These are the questions Codeboard actually asked. Everything below is answered in full — **revise this section first**, because the same interviewer and the same question bank get reused, and these topics are the ones this company cares about.
