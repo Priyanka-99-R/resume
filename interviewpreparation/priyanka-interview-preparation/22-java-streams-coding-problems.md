@@ -1524,3 +1524,5 @@ List<Integer> common = a.stream().filter(b::contains).distinct().toList();
 - [05-java.md](./05-java.md) — OOP, collections, HashMap internals, Java 8 basics
 - [12-java17-features.md](./12-java17-features.md) — records, sealed classes, pattern matching
 - [09-coding-problems.md](./09-coding-problems.md) — 35+ general DSA problems in JS and Java
+
+> ⭐ **Before the round:** the one-page recall version of this file is **[42 — Java + Streams Final Memory Sheet](./42-java-streams-final-memory-sheet.md)** — all 32 problems, one line each, then the code for every one.
