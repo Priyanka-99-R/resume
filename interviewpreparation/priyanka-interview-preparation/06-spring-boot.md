@@ -18,6 +18,10 @@
 
 ---
 
+> 🌐 **The web layer has its own file now:** [44 — Spring MVC](./44-spring-mvc.md) — the DispatcherServlet request flow, `@PathVariable`/`@RequestParam`/`@RequestBody`, validation, `@RestControllerAdvice`, filters vs interceptors, redirect vs forward, and 25 predict-the-output traps.
+
+---
+
 ## Contents
 
 1. [Spring Core](#spring-core)

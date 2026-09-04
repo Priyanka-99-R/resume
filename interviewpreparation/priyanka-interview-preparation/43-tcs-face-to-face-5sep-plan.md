@@ -82,7 +82,10 @@ Read the 32-row table in **42** once. Then **close the laptop** and hand-write t
 
 ## ⭐ Block 3 · 12:30–14:00 · Spring Boot
 
-**File: [06 — Spring & Spring Boot](./06-spring-boot.md)**
+**File: [06 — Spring & Spring Boot](./06-spring-boot.md)** · web layer: **[44 — Spring MVC](./44-spring-mvc.md)**
+
+> 🌐 If they go to the **web layer** — *"explain the Spring MVC request flow"* is the single most likely Spring question after *"what is Spring Boot"* — read **44** and be able to draw:
+> `Request → DispatcherServlet → HandlerMapping → HandlerAdapter → Controller → HttpMessageConverter → Response` (🧠 **D-M-A-C-C-R**), plus `@PathVariable` vs `@RequestParam` vs `@RequestBody` and `@RestControllerAdvice`.
 
 The eight things TCS asks, in this order:
 
@@ -249,8 +252,8 @@ Ranked from **your own 144-question log** — these repeat across companies, so 
 | 8 | What is Spring Boot / why use it | [06](./06-spring-boot.md) ⭐ |
 | 9 | Dependency injection + which type and why | [06](./06-spring-boot.md) ⭐ |
 | 10 | Spring Boot annotations | [06](./06-spring-boot.md) · [37](./37-altimetrik-fullstack-java-angular-31aug.md) |
-| 11 | How do you handle exceptions in REST? | [06](./06-spring-boot.md) |
-| 12 | REST API design + status codes (401 vs 403) | [06](./06-spring-boot.md) · [38](./38-iqvia-technical-lead-prep.md) |
+| 11 | How do you handle exceptions in REST? | [06](./06-spring-boot.md) · [44](./44-spring-mvc.md) |
+| 12 | REST API design + status codes (401 vs 403) | [06](./06-spring-boot.md) · [44](./44-spring-mvc.md) · [38](./38-iqvia-technical-lead-prep.md) |
 | 13 | SQL: average salary per department | [36](./36-sql-interview-questions.md) ⭐ |
 | 14 | SQL: second-highest salary | [36](./36-sql-interview-questions.md) ⭐⭐ |
 | 15 | Joins + WHERE vs HAVING | [36](./36-sql-interview-questions.md) |
